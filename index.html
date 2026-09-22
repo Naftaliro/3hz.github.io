@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="localhost · 3hz · kestrel · Linux-minded builder, writer, and personal home page.">
-  <meta property="og:title" content="localhost · 3hz · kestrel">
-  <meta property="og:description" content="Linux-minded builder, technician, and part-time philosopher.">
-  <meta property="og:image" content="https://3hz.dev/avatar.png">
-  <meta property="og:url" content="https://3hz.dev/">
-  <meta name="theme-color" content="#1e1e2e">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3hz · localhost · kestrel</title>
+  <meta name="description" content="localhost / kestrel / 3hz. linux-minded technician, writer, birdwatcher, part-time philosopher. this is my corner of the internet.">
   <link rel="canonical" href="https://3hz.dev/">
-  <title>localhost · 3hz · kestrel</title>
+  <meta name="theme-color" content="#1e1e2e">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="3hz · localhost · kestrel">
+  <meta property="og:description" content="linux-minded technician, writer, birdwatcher, part-time philosopher.">
+  <meta property="og:image" content="https://3hz.dev/assets/img/avatar-512.jpg">
+  <meta property="og:url" content="https://3hz.dev/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/iosevka-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- pick the flavor before first paint so it doesn't flash mocha -->
+  <script>
+    try { var f = localStorage.getItem('flavor'); if (f) document.documentElement.dataset.flavor = f; } catch (e) {}
+    document.documentElement.classList.add('js');
+  </script>
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C80S6SM7N3"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -18,426 +32,353 @@
     gtag('js', new Date());
     gtag('config', 'G-C80S6SM7N3');
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --base:#1e1e2e;--mantle:#181825;--crust:#11111b;
-      --s0:#313244;--s1:#45475a;--s2:#585b70;
-      --ov0:#6c7086;--ov2:#9399b2;
-      --text:#cdd6f4;--sub1:#bac2de;--sub0:#a6adc8;
-      --lav:#b4befe;--mauve:#cba6f7;--pink:#f5c2e7;
-      --sky:#89dceb;--teal:#94e2d5;--green:#a6e3a1;
-      --yellow:#f9e2af;--peach:#fab387;--red:#f38ba8;
-    }
-    html{scroll-behavior:smooth}
-    body{background:var(--base);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.7;min-height:100vh}
-
-    /* background fx */
-    .scanlines{position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:0}
-    .orb{position:fixed;border-radius:50%;filter:blur(90px);opacity:.1;pointer-events:none;z-index:0}
-    .o1{width:500px;height:500px;background:var(--mauve);top:-150px;right:-150px}
-    .o2{width:350px;height:350px;background:var(--lav);bottom:0;left:-100px}
-
-    .wrap{max-width:680px;margin:0 auto;padding:2.5rem 1.5rem 4rem;position:relative;z-index:1}
-
-    /* header */
-    .header{display:flex;align-items:flex-start;gap:1.5rem;margin-bottom:2rem;flex-wrap:wrap}
-    .avatar-wrap{position:relative;flex-shrink:0}
-    .avatar{width:82px;height:82px;border-radius:50%;border:2px solid var(--s1);overflow:hidden;background:var(--s0)}
-    .avatar img{width:100%;height:100%;object-fit:cover;object-position:center top}
-    .avatar-status{position:absolute;bottom:4px;right:4px;width:14px;height:14px;border-radius:50%;background:var(--green);border:2px solid var(--base);animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-    .header-text{flex:1;min-width:200px}
-    .pline{display:flex;align-items:baseline;gap:6px;font-size:12px;margin-bottom:.3rem;flex-wrap:wrap}
-    .pu{color:var(--green)}.pat{color:var(--ov2)}.ph{color:var(--mauve)}.pp{color:var(--sky)}.ps{color:var(--peach)}.pc2{color:var(--text)}
-    .hero-name{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,6vw,2.4rem);font-weight:800;line-height:1;background:linear-gradient(135deg,var(--mauve) 0%,var(--lav) 55%,var(--sky) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:glitch 9s infinite}
-    @keyframes glitch{0%,88%,100%{transform:translate(0);filter:none}89%{transform:translate(-2px,1px);filter:hue-rotate(25deg)}90%{transform:translate(2px,-1px);filter:hue-rotate(-25deg)}91%{transform:translate(0)}}
-    .hero-sub{font-size:12px;color:var(--ov2);margin:.3rem 0 .6rem;letter-spacing:.06em}
-    .aliases{display:flex;flex-wrap:wrap;gap:5px;margin:.5rem 0 .5rem}
-    .alias{font-size:10px;padding:2px 9px;border-radius:3px;border:1px solid;letter-spacing:.06em;font-family:'JetBrains Mono',monospace}
-    .a-active{background:rgba(203,166,247,.15);color:var(--mauve);border-color:rgba(203,166,247,.4)}
-    .a-dim{background:rgba(108,112,134,.1);color:var(--ov2);border-color:rgba(108,112,134,.3)}
-    .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:.4rem}
-    .tag{font-size:10px;padding:2px 8px;border-radius:3px;border:1px solid;letter-spacing:.05em}
-    .tm{background:rgba(203,166,247,.1);color:var(--mauve);border-color:rgba(203,166,247,.3)}
-    .ts{background:rgba(137,220,235,.1);color:var(--sky);border-color:rgba(137,220,235,.3)}
-    .tg{background:rgba(166,227,161,.1);color:var(--green);border-color:rgba(166,227,161,.3)}
-    .tp{background:rgba(250,179,135,.1);color:var(--peach);border-color:rgba(250,179,135,.3)}
-    .tpk{background:rgba(245,194,231,.1);color:var(--pink);border-color:rgba(245,194,231,.3)}
-    .tl{background:rgba(180,190,254,.1);color:var(--lav);border-color:rgba(180,190,254,.3)}
-
-    /* status bar */
-    .statusbar{background:var(--crust);border:1px solid var(--s0);border-radius:6px;padding:7px 14px;display:flex;align-items:center;gap:12px;font-size:11px;color:var(--ov0);flex-wrap:wrap;margin-bottom:2rem}
-    .sdot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 2s infinite}
-
-    /* section headers */
-    .sh{font-size:11px;color:var(--ov0);letter-spacing:.18em;text-transform:uppercase;margin:2rem 0 .8rem;display:flex;align-items:center;gap:10px}
-    .sh::before{content:'#';color:var(--mauve)}
-    .sh::after{content:'';flex:1;height:1px;background:var(--s1)}
-
-    /* bio */
-    .bio{font-size:13px;color:var(--sub1);line-height:1.85;border-left:2px solid var(--mauve);padding-left:1rem;margin-bottom:1.5rem}
-
-    /* currently */
-    .currently{background:var(--mantle);border:1px solid var(--s0);border-radius:8px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:13px}
-    .curr-row{display:flex;align-items:baseline;gap:.5rem;padding:.25rem 0;color:var(--sub0);flex-wrap:wrap}
-    .curr-row .label{color:var(--ov0);min-width:110px;font-size:11px;letter-spacing:.04em;flex-shrink:0}
-    .curr-row .val{color:var(--sub1)}
-
-    /* likes */
-    .likes-grid{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem}
-    .like-pill{font-size:11px;padding:3px 10px;border-radius:20px;background:var(--s0);color:var(--sub0);border:1px solid var(--s1)}
-
-    /* links */
-    .links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-bottom:1.5rem}
-    .lc{background:var(--mantle);border:1px solid var(--s0);border-radius:8px;padding:12px 14px;text-decoration:none;display:flex;align-items:center;gap:10px;transition:border-color .2s,background .2s,transform .15s;position:relative;overflow:hidden}
-    .lc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--mauve),transparent);opacity:0;transition:opacity .2s}
-    .lc:hover{border-color:var(--s2);background:var(--s0);transform:translateY(-1px)}
-    .lc:hover::before{opacity:1}
-    .lc-icon{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-    .im{background:rgba(203,166,247,.15);color:var(--mauve)}
-    .is{background:rgba(137,220,235,.15);color:var(--sky)}
-    .ig{background:rgba(166,227,161,.15);color:var(--green)}
-    .ip{background:rgba(250,179,135,.15);color:var(--peach)}
-    .ipk{background:rgba(245,194,231,.15);color:var(--pink)}
-    .il{background:rgba(180,190,254,.15);color:var(--lav)}
-    .lc-info{min-width:0}
-    .lc-name{font-size:12px;color:var(--text);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .lc-desc{font-size:10px;color:var(--ov0);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .lc-arr{margin-left:auto;color:var(--ov0);font-size:11px;flex-shrink:0;opacity:0;transition:opacity .2s}
-    .lc:hover .lc-arr{opacity:1}
-    .real-card{border-color:rgba(203,166,247,.2) !important}
-
-    /* projects */
-    .proj-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem}
-    .pc{background:var(--mantle);border:1px solid var(--s0);border-radius:8px;padding:14px 16px;cursor:pointer;transition:border-color .2s,background .2s;text-decoration:none;display:block}
-    .pc:hover{border-color:var(--s2);background:rgba(49,50,68,.6)}
-    .pc-top{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
-    .pc-name{font-size:13px;color:var(--lav);font-weight:500}
-    .pc-lang{font-size:10px;padding:2px 7px;border-radius:3px;background:rgba(137,220,235,.1);color:var(--sky);border:1px solid rgba(137,220,235,.2);margin-left:auto}
-    .pc-desc{font-size:12px;color:var(--sub0);line-height:1.55}
-    .pc-tag{font-size:10px;color:var(--yellow);margin-top:6px}
-
-    /* writing */
-    .wc{background:var(--mantle);border:1px solid var(--s0);border-radius:8px;padding:14px 16px;margin-bottom:8px;transition:border-color .2s}
-    .wc:hover{border-color:var(--mauve)}
-    .wc-meta{font-size:10px;color:var(--ov0);margin-bottom:4px}
-    .wc-title{font-size:13px;color:var(--text);font-weight:500;margin-bottom:3px}
-    .wc-exc{font-size:11px;color:var(--sub0);line-height:1.6}
-    .wc-tag{font-size:10px;color:var(--peach);margin-top:6px}
-
-    /* faq */
-    .faq-item{border:1px solid var(--s0);border-radius:6px;overflow:hidden;margin-bottom:6px}
-    .faq-q{padding:10px 14px;background:var(--mantle);font-size:12px;color:var(--sub1);cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;transition:background .15s;list-style:none}
-    .faq-q:hover{background:var(--s0)}
-    .faq-ch{color:var(--ov0);font-size:10px;transition:transform .2s;flex-shrink:0;margin-left:8px}
-    .faq-a{background:var(--crust);font-size:11px;color:var(--sub0);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .2s;padding:0 14px}
-    .faq-a.open{max-height:300px;padding:10px 14px}
-    .faq-ch.open{transform:rotate(180deg)}
-
-    /* footer */
-    .divider{height:1px;background:var(--s0);margin:2rem 0}
-    .footer{font-size:11px;color:var(--ov0);padding-bottom:1rem}
-    .footer a{color:var(--mauve);text-decoration:none}
-    .footer a:hover{color:var(--lav)}
-    .cursor{display:inline-block;width:7px;height:13px;background:var(--mauve);vertical-align:middle;margin-left:3px;animation:blink 1.1s step-end infinite}
-    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-
-    /* mobile */
-    @media(max-width:480px){
-      .wrap{padding:1.5rem 1rem 3rem}
-      .links-grid{grid-template-columns:1fr}
-      .statusbar{gap:8px}
-    }
-  </style>
 </head>
 <body>
 
-<div class="scanlines"></div>
-<div class="orb o1"></div>
-<div class="orb o2"></div>
+<!-- icons (tabler, trimmed) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-feather" viewBox="0 0 24 24"><path d="M4 20l10 -10m0 -5v5h5m-9 -1v5h5m-9 -1v5h5m-5 -5l4 -4l4 -4"/><path d="M19 10c.638 -.636 1 -1.515 1 -2.486a3.515 3.515 0 0 0 -3.517 -3.514c-.97 0 -1.847 .367 -2.483 1m-3 13l4 -4l4 -4"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10"/><path d="M3 7l9 6l9 -6"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0"/><path d="M15 9h.01"/></symbol>
+    <symbol id="i-term" viewBox="0 0 24 24"><path d="M8 9l3 3l-3 3"/><path d="M13 15l3 0"/><path d="M3 6a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2l0 -12"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/><path d="M21 21l-6 -6"/></symbol>
+  </defs>
+</svg>
 
-<main class="wrap">
+<!-- wallpaper. drawn in assets/js/main.js, it's a prairie at night -->
+<canvas id="wall" aria-hidden="true"></canvas>
 
-  <!-- header -->
-  <header class="header">
-    <div class="avatar-wrap">
-      <div class="avatar">
-        <!-- drop your avatar.png in the same folder as this file -->
-        <img src="avatar.png" alt="kestrel">
-      </div>
-      <div class="avatar-status" title="online"></div>
-    </div>
-    <div class="header-text">
-      <div class="pline">
-        <span class="pu">localhost</span><span class="pat">@</span><span class="ph">3hz</span><span class="ps">:</span><span class="pp">~</span><span class="ps">$</span><span class="pc2">whoami</span>
-      </div>
-      <div class="hero-name">localhost</div>
-      <div class="hero-sub">arlington heights, il &nbsp;·&nbsp; he/him</div>
-      <div class="aliases">
-        <span class="alias a-active">localhost</span>
-        <span class="alias a-active">kestrel</span>
-        <span class="alias a-active">3hz</span>
-        <span class="alias a-dim">naftali</span>
-      </div>
-      <div class="tag-row">
-        <span class="tag tm">cybersecurity</span>
-        <span class="tag ts">linux</span>
-        <span class="tag tg">ESCP certified</span>
-        <span class="tag tp">writing</span>
-        <span class="tag tpk">philosophy</span>
-        <span class="tag tl">top 30 · picoCTF 2019</span>
-      </div>
-    </div>
-  </header>
+<a class="skip" href="#desk">skip to content</a>
 
-  <!-- status bar -->
-  <div class="statusbar" role="status">
-    <span><span class="sdot"></span></span>
-    <span style="color:var(--green)">joining Ace Computers · Aug 2026</span>
-    <span style="color:var(--s2)" aria-hidden="true">·</span>
-    <span>chicago metro</span>
-    <span style="color:var(--s2)" aria-hidden="true">·</span>
-    <span>linux systems / HPC</span>
-    <span style="color:var(--s2)" aria-hidden="true">·</span>
-    <span>🐦 birdwatcher</span>
+<!-- ───────────────────────── bar ───────────────────────── -->
+<header class="bar">
+  <a class="bar-logo" href="./" aria-label="3hz home">
+    <svg viewBox="0 0 24 12" aria-hidden="true"><path d="M0 6 Q2 0 4 6 T8 6 T12 6 T16 6 T20 6 T24 6"/></svg>
+    <span>3hz</span>
+  </a>
+
+  <nav class="ws" aria-label="sections">
+    <a href="#fetch" data-ws="fetch"><b>1</b><span>~</span></a>
+    <a href="#about" data-ws="about"><b>2</b><span>about</span></a>
+    <a href="#projects" data-ws="projects"><b>3</b><span>code</span></a>
+    <a href="#writing" data-ws="writing"><b>4</b><span>words</span></a>
+    <a href="#friends" data-ws="friends"><b>5</b><span>friends</span></a>
+    <a href="#man" data-ws="man"><b>6</b><span>man</span></a>
+  </nav>
+
+  <div class="bar-title" aria-hidden="true"><span id="bar-title">kitty ~ fastfetch</span></div>
+
+  <div class="bar-mods">
+    <span class="mod mod-cpu" title="cpu frequency (tuned very, very low)">cpu 3.00hz</span>
+    <button class="mod mod-flavor" id="flavor" type="button" title="switch catppuccin flavor (t)">
+      <span class="swatch" aria-hidden="true"></span><span id="flavor-name">mocha</span>
+    </button>
+    <span class="mod mod-clock" title="my local time (chicago)"><time id="clock">--:--</time></span>
   </div>
+</header>
 
-  <!-- about -->
-  <section aria-labelledby="about-heading">
-    <div class="sh" id="about-heading">about</div>
-    <div class="bio">
-      Linux-minded technician, curious builder, and part-time philosopher. I fix things, break things intentionally, and write about what I find in between. I am joining Ace Computers as an incoming Level II Support professional in August 2026, with a focus on custom-built systems, Linux, and HPC environments.<br><br>
-      Also: birds, anime, piano, and chasing the kind of clarity that doesn't come easy. The alias is a bird that hovers perfectly still while watching everything below it. Felt accurate.
-    </div>
-    <div class="currently" aria-label="currently">
-      <div class="curr-row"><span class="label">reading</span><span class="val">Marcus Aurelius · Tao Te Ching (again)</span></div>
-      <div class="curr-row"><span class="label">writing</span><span class="val">The Hastur Protocol (Lovecraftian horror, WIP)</span></div>
-      <div class="curr-row"><span class="label">studying</span><span class="val">LPIC-1 · Linux systems administration</span></div>
-      <div class="curr-row"><span class="label">listening to</span><span class="val">whatever the piano feels like tonight</span></div>
-      <div class="curr-row"><span class="label">os</span><span class="val">macOS (MacBook Neo A18) · ZorinOS on the side</span></div>
-    </div>
-  </section>
+<!-- ───────────────────────── desk ───────────────────────── -->
+<main class="desk" id="desk">
 
-  <!-- likes -->
-  <section aria-labelledby="likes-heading">
-    <div class="sh" id="likes-heading">likes</div>
-    <div class="likes-grid">
-      <span class="like-pill">birdwatching</span>
-      <span class="like-pill">catppuccin</span>
-      <span class="like-pill">vinland saga</span>
-      <span class="like-pill">steins;gate</span>
-      <span class="like-pill">frieren</span>
-      <span class="like-pill">linux ricing</span>
-      <span class="like-pill">FOSS</span>
-      <span class="like-pill">philosophy</span>
-      <span class="like-pill">piano</span>
-      <span class="like-pill">marcus aurelius</span>
-      <span class="like-pill">tao te ching</span>
-      <span class="like-pill">meditation</span>
-      <span class="like-pill">nature</span>
-      <span class="like-pill">CTFs</span>
-      <span class="like-pill">vim</span>
-      <span class="like-pill">journaling</span>
-      <span class="like-pill">terminal aesthetics</span>
-      <span class="like-pill">slow mornings</span>
+  <!-- 1 · fetch -->
+  <section class="win" id="fetch" data-title="kitty ~ fastfetch" aria-labelledby="t-fetch">
+    <header class="win-bar"><h2 id="t-fetch"><b>kitty</b> ~</h2><span class="win-meta">zsh</span></header>
+    <div class="win-body">
+      <p class="cmd"><span class="p-dir">~</span> <span class="p-arrow">❯</span> fastfetch</p>
+      <div class="fetch">
+        <div class="fetch-logo">
+          <img src="assets/img/avatar-320.webp" srcset="assets/img/avatar-320.webp 320w, assets/img/avatar-640.webp 640w" sizes="170px" width="170" height="170" alt="drawing of me with curly hair and glasses, winking with my tongue out, hands on my cheeks">
+        </div>
+        <div class="fetch-info">
+          <h1 class="fetch-head"><span class="u">localhost</span><span class="at">@</span><span class="h">3hz</span></h1>
+          <div class="fetch-rule" aria-hidden="true">─────────────</div>
+          <dl>
+            <div><dt>aka</dt><dd>kestrel · 3hz · naftali</dd></div>
+            <div><dt>host</dt><dd>arlington heights, il</dd></div>
+            <div><dt>pronouns</dt><dd>he/him</dd></div>
+            <div><dt>work</dt><dd>level II support @ ace computers</dd></div>
+            <div><dt>focus</dt><dd>linux systems · hpc · security</dd></div>
+            <div><dt>certs</dt><dd>ESCP · picoCTF 2019 top 30</dd></div>
+            <div><dt>os</dt><dd>macOS (macbook neo), zorin os on the side</dd></div>
+            <div><dt>editor</dt><dd>vim</dd></div>
+            <div><dt>theme</dt><dd>catppuccin <span id="fetch-flavor">mocha</span> (mauve)</dd></div>
+            <div><dt>hobbies</dt><dd>birds · piano · writing · philosophy</dd></div>
+          </dl>
+          <div class="fetch-colors" aria-hidden="true">
+            <i style="--c:var(--surface1)"></i><i style="--c:var(--red)"></i><i style="--c:var(--green)"></i><i style="--c:var(--yellow)"></i><i style="--c:var(--blue)"></i><i style="--c:var(--pink)"></i><i style="--c:var(--teal)"></i><i style="--c:var(--subtext1)"></i>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- links -->
-  <section aria-labelledby="links-heading">
-    <div class="sh" id="links-heading">links</div>
-    <nav class="links-grid" aria-label="site links">
-      <a class="lc" href="https://3hz.dev">
-        <div class="lc-icon im"><i class="ti ti-terminal-2" aria-hidden="true"></i></div>
-        <div class="lc-info"><div class="lc-name">3hz.dev</div><div class="lc-desc">you are here</div></div>
-        <span class="lc-arr" aria-hidden="true">↗</span>
-      </a>
-      <a class="lc" href="https://naftaliro.dev">
-        <div class="lc-icon ip"><i class="ti ti-feather" aria-hidden="true"></i></div>
-        <div class="lc-info"><div class="lc-name">naftaliro.dev</div><div class="lc-desc">writing &amp; hobbies</div></div>
-        <span class="lc-arr" aria-hidden="true">↗</span>
-      </a>
-      <a class="lc real-card" href="https://mitchellberg.org">
-        <div class="lc-icon il"><i class="ti ti-user" aria-hidden="true"></i></div>
-        <div class="lc-info"><div class="lc-name">mitchellberg.org</div><div class="lc-desc">the person behind the alias ↳</div></div>
-        <span class="lc-arr" aria-hidden="true">↗</span>
-      </a>
-      <a class="lc" href="https://github.com/Naftaliro">
-        <div class="lc-icon is"><i class="ti ti-brand-github" aria-hidden="true"></i></div>
-        <div class="lc-info"><div class="lc-name">github/Naftaliro</div><div class="lc-desc">code &amp; projects</div></div>
-        <span class="lc-arr" aria-hidden="true">↗</span>
-      </a>
-      <a class="lc" href="mailto:dev@naftaliro.dev">
-        <div class="lc-icon ig"><i class="ti ti-mail" aria-hidden="true"></i></div>
-        <div class="lc-info"><div class="lc-name">email</div><div class="lc-desc">reach out</div></div>
-        <span class="lc-arr" aria-hidden="true">↗</span>
-      </a>
-      <a class="lc" href="/pgp.txt">
-        <div class="lc-icon ip"><i class="ti ti-lock" aria-hidden="true"></i></div>
-        <div class="lc-info"><div class="lc-name">pgp key</div><div class="lc-desc">for the paranoid (respectfully)</div></div>
-        <span class="lc-arr" aria-hidden="true">↗</span>
-      </a>
-    </nav>
+  <section class="win" id="links" data-title="rofi -show links" aria-labelledby="t-links">
+    <header class="win-bar"><h2 id="t-links"><b>rofi</b> links</h2><span class="win-meta">drun</span></header>
+    <div class="win-body rofi">
+      <div class="rofi-input" aria-hidden="true">
+        <svg class="ic"><use href="#i-search"/></svg><span>links</span><span class="caret"></span>
+      </div>
+      <ul class="rofi-list">
+        <li><a href="https://naftaliro.dev"><svg class="ic" aria-hidden="true"><use href="#i-feather"/></svg><span class="r-name">naftaliro.dev</span><span class="r-desc">writing &amp; hobbies</span></a></li>
+        <li><a href="https://mitchellberg.org"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg><span class="r-name">mitchellberg.org</span><span class="r-desc">the person behind the alias</span></a></li>
+        <li><a href="https://github.com/Naftaliro"><svg class="ic" aria-hidden="true"><use href="#i-github"/></svg><span class="r-name">github/Naftaliro</span><span class="r-desc">code &amp; projects</span></a></li>
+        <li><a href="mailto:dev@naftaliro.dev"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg><span class="r-name">email</span><span class="r-desc">dev@naftaliro.dev</span></a></li>
+        <li><a href="pgp.txt"><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg><span class="r-name">pgp key</span><span class="r-desc">for the paranoid (respectfully)</span></a></li>
+        <li><a href="./" aria-current="page"><svg class="ic" aria-hidden="true"><use href="#i-term"/></svg><span class="r-name">3hz.dev</span><span class="r-desc">you are here</span></a></li>
+      </ul>
+      <p class="rofi-foot" aria-hidden="true">6 entries · ↵ to open</p>
+    </div>
   </section>
 
-  <!-- projects -->
-  <section aria-labelledby="projects-heading">
-    <div class="sh" id="projects-heading">projects</div>
-    <div class="proj-list">
-      <a class="pc" href="https://github.com/Naftaliro/pz-server-manager" target="_blank" rel="noopener">
-        <div class="pc-top">
-          <i class="ti ti-server" style="color:var(--mauve);font-size:15px" aria-hidden="true"></i>
-          <span class="pc-name">pz-server-manager</span>
-          <span class="pc-lang">electron / react / ts</span>
-        </div>
-        <div class="pc-desc">Full desktop app for managing Project Zomboid dedicated servers. SteamCMD integration, live console, mod manager, auto-updates. 13 releases.</div>
-        <div class="pc-tag">★ flagship project</div>
-      </a>
-      <a class="pc" href="https://github.com/Naftaliro/gnome-theme-switcher" target="_blank" rel="noopener">
-        <div class="pc-top">
-          <i class="ti ti-adjustments" style="color:var(--mauve);font-size:15px" aria-hidden="true"></i>
-          <span class="pc-name">gnome-theme-switcher</span>
-          <span class="pc-lang">bash / python</span>
-        </div>
-        <div class="pc-desc">Dynamic GNOME theme switcher. Terminal or desktop shortcut. Built for ZorinOS daily driving.</div>
-        <div class="pc-tag">★ linux desktop tooling</div>
-      </a>
-      <a class="pc" href="https://github.com/Naftaliro/zorinos-gnome-themes" target="_blank" rel="noopener">
-        <div class="pc-top">
-          <i class="ti ti-palette" style="color:var(--lav);font-size:15px" aria-hidden="true"></i>
-          <span class="pc-name">zorinos-gnome-themes</span>
-          <span class="pc-lang">css / shell</span>
-        </div>
-        <div class="pc-desc">Custom theme collection for ZorinOS GNOME. Opinionated, clean, built for daily driving.</div>
-        <div class="pc-tag">★ desktop ricing</div>
-      </a>
-      <a class="pc" href="https://github.com/Naftaliro/first-steps" target="_blank" rel="noopener">
-        <div class="pc-top">
-          <i class="ti ti-rocket" style="color:var(--sky);font-size:15px" aria-hidden="true"></i>
-          <span class="pc-name">first-steps</span>
-          <span class="pc-lang">python / GTK4 / LibAdwaita</span>
-        </div>
-        <div class="pc-desc">GTK4 + LibAdwaita onboarding wizard for Zorin OS 18 and Ubuntu-based systems. Guides new Linux users through setup without a terminal.</div>
-        <div class="pc-tag">★ community resource</div>
-      </a>
-      <div class="pc" style="border-style:dashed;opacity:.5;cursor:default">
-        <div class="pc-top">
-          <i class="ti ti-dots" style="color:var(--ov0);font-size:15px" aria-hidden="true"></i>
-          <span class="pc-name" style="color:var(--ov0)">more on github · most are unfinished and i'm okay with that</span>
-        </div>
+  <!-- 2 · about -->
+  <section class="win" id="about" data-title="nvim about.md" aria-labelledby="t-about">
+    <header class="win-bar"><h2 id="t-about"><b>nvim</b> about.md</h2><span class="win-meta">markdown</span></header>
+    <div class="win-body nvim">
+      <div class="nv-buf">
+        <div class="nv-line"><span class="ln" aria-hidden="true">1</span><p class="md-h"><span aria-hidden="true"># </span>about</p></div>
+        <div class="nv-line"><span class="ln" aria-hidden="true">2</span><p>Linux-minded technician, curious builder, and part-time philosopher. I fix things, break things on purpose, and write about what I find in between.</p></div>
+        <div class="nv-line"><span class="ln" aria-hidden="true">3</span><p>These days I'm doing level II support at Ace Computers, mostly custom-built systems, Linux, and HPC environments.</p></div>
+        <div class="nv-line"><span class="ln" aria-hidden="true">4</span><p>Also: birds, anime, piano, and chasing the kind of clarity that doesn't come easy. The alias is a bird that hovers perfectly still while watching everything below it. Felt accurate.</p></div>
+        <div class="nv-line"><span class="ln" aria-hidden="true">5</span><p class="md-h"><span aria-hidden="true">## </span>things i like</p></div>
+        <div class="nv-line"><span class="ln" aria-hidden="true">6</span><ul class="md-list">
+          <li>birdwatching, nature, slow mornings</li>
+          <li>vinland saga, steins;gate, frieren</li>
+          <li>piano, meditation, journaling</li>
+          <li>marcus aurelius, the tao te ching, philosophy in general</li>
+          <li>linux ricing, FOSS, vim, CTFs, terminal aesthetics, catppuccin (obviously)</li>
+        </ul></div>
+        <div class="nv-tilde" aria-hidden="true">~<br>~</div>
+      </div>
+      <div class="nv-status" aria-hidden="true">
+        <span class="nv-mode">NORMAL</span><span class="nv-file">about.md</span><span class="nv-fill"></span><span class="nv-ft">utf-8</span><span class="nv-pos">1:1</span>
       </div>
     </div>
   </section>
 
-  <!-- writing -->
-  <section aria-labelledby="writing-heading">
-    <div class="sh" id="writing-heading">writing</div>
-    <div class="wc">
-      <div class="wc-meta">fiction · lovecraftian horror · WIP</div>
-      <div class="wc-title">The Hastur Protocol</div>
-      <div class="wc-exc">A neural network learns something it was never meant to know. What happens at the boundary between machine pattern and cosmic dread.</div>
-      <div class="wc-tag">[ excerpt coming soon ]</div>
-    </div>
-    <a class="wc" href="https://naftaliro.dev/beating-the-game.html" target="_blank" rel="noopener" style="text-decoration:none;display:block">
-      <div class="wc-meta">philosophy · short fiction · completed</div>
-      <div class="wc-title">Beating The Game</div>
-      <div class="wc-exc">On nihilism, grief, and whether the game was ever worth playing. Written for myself, shared for whoever it finds.</div>
-      <div class="wc-tag">[ read it → naftaliro.dev ]</div>
-    </a>
-    <div class="wc" style="border-style:dashed;opacity:.5;cursor:default">
-      <div class="wc-meta">blog · no schedule · no SEO</div>
-      <div class="wc-title">dispatches from the terminal</div>
-      <div class="wc-exc">Linux, security, the nature of things. Informal. Whenever. Not yet started — but the intention is real.</div>
-      <div class="wc-tag">[ coming eventually ]</div>
+  <!-- now -->
+  <section class="win" id="now" data-title="cat ~/.now" aria-labelledby="t-now">
+    <header class="win-bar"><h2 id="t-now"><b>kitty</b> ~/.now</h2><span class="win-meta">sep 2026</span></header>
+    <div class="win-body now">
+      <p class="cmd"><span class="p-dir">~</span> <span class="p-arrow">❯</span> cat .now</p>
+      <dl class="now-list">
+        <div><dt>reading</dt><dd>Marcus Aurelius, Tao Te Ching (again)</dd></div>
+        <div><dt>writing</dt><dd>The Hastur Protocol, lovecraftian horror, wip</dd></div>
+        <div><dt>studying</dt><dd>LPIC-1, linux systems administration</dd></div>
+        <div><dt>listening</dt><dd>whatever the piano feels like tonight</dd></div>
+      </dl>
+      <div class="np">
+        <p class="np-label">♪ now playing</p>
+        <p class="np-track">piano, improvised</p>
+        <p class="np-artist">me, whenever it feels like it</p>
+        <div class="np-bar" aria-hidden="true"><span class="np-time">2:14</span><span class="np-track-line"><i></i></span><span class="np-time">∞</span></div>
+      </div>
+      <div class="cava" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
     </div>
   </section>
 
-  <!-- faq -->
-  <section aria-labelledby="faq-heading">
-    <div class="sh" id="faq-heading">faq</div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
-        <span><span style="color:var(--mauve);margin-right:8px" aria-hidden="true">$</span>who is kestrel?</span>
-        <span class="faq-ch" aria-hidden="true">▾</span>
-      </div>
-      <div class="faq-a" role="region">An alias. The person behind it goes by Naftali — Linux-focused technician, ESCP certified, and top-30 PicoCTF 2019 globally. Joining Ace Computers as an incoming Level II Support professional in August 2026. Real info at mitchellberg.org.</div>
+  <!-- 3 · projects -->
+  <section class="win" id="projects" data-title="ls -l ~/projects" aria-labelledby="t-projects">
+    <header class="win-bar"><h2 id="t-projects"><b>kitty</b> ~/projects</h2><span class="win-meta">zsh</span></header>
+    <div class="win-body">
+      <p class="cmd"><span class="p-dir">~</span> <span class="p-arrow">❯</span> ls -l projects</p>
+      <p class="ls-total">total 5</p>
+      <ul class="ls">
+        <li>
+          <a href="https://github.com/Naftaliro/pz-server-manager">
+            <span class="ls-perm" aria-hidden="true">drwxr-xr-x</span>
+            <span class="ls-name">pz-server-manager/</span>
+            <span class="ls-lang">electron · react · ts</span>
+            <span class="ls-tag star">★ flagship</span>
+            <span class="ls-desc">Full desktop app for managing Project Zomboid dedicated servers. SteamCMD integration, live console, mod manager, auto-updates. 13 releases.</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/Naftaliro/gnome-theme-switcher">
+            <span class="ls-perm" aria-hidden="true">drwxr-xr-x</span>
+            <span class="ls-name">gnome-theme-switcher/</span>
+            <span class="ls-lang">bash · python</span>
+            <span class="ls-tag">desktop tooling</span>
+            <span class="ls-desc">Dynamic GNOME theme switcher, from the terminal or a desktop shortcut. Built for daily-driving ZorinOS.</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/Naftaliro/zorinos-gnome-themes">
+            <span class="ls-perm" aria-hidden="true">drwxr-xr-x</span>
+            <span class="ls-name">zorinos-gnome-themes/</span>
+            <span class="ls-lang">css · shell</span>
+            <span class="ls-tag">ricing</span>
+            <span class="ls-desc">My theme collection for ZorinOS GNOME. Opinionated and clean.</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/Naftaliro/first-steps">
+            <span class="ls-perm" aria-hidden="true">drwxr-xr-x</span>
+            <span class="ls-name">first-steps/</span>
+            <span class="ls-lang">python · gtk4 · libadwaita</span>
+            <span class="ls-tag">community</span>
+            <span class="ls-desc">Onboarding wizard for Zorin OS 18 and Ubuntu-based systems. Walks new Linux users through setup without ever opening a terminal.</span>
+          </a>
+        </li>
+        <li class="ls-file">
+          <a href="https://github.com/Naftaliro?tab=repositories">
+            <span class="ls-perm" aria-hidden="true">-rw-r--r--</span>
+            <span class="ls-name">the-rest.txt</span>
+            <span class="ls-lang">github</span>
+            <span class="ls-tag"></span>
+            <span class="ls-desc">more on github. most of it is unfinished and i'm okay with that.</span>
+          </a>
+        </li>
+      </ul>
     </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
-        <span><span style="color:var(--mauve);margin-right:8px" aria-hidden="true">$</span>why kestrel?</span>
-        <span class="faq-ch" aria-hidden="true">▾</span>
-      </div>
-      <div class="faq-a" role="region">A kestrel is a small falcon. Sharp-eyed, patient — hovers perfectly still while watching everything below it. Felt right. Also birds are a genuine thing for me. Grounding. The name picked itself.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
-        <span><span style="color:var(--mauve);margin-right:8px" aria-hidden="true">$</span>what are all your aliases?</span>
-        <span class="faq-ch" aria-hidden="true">▾</span>
-      </div>
-      <div class="faq-a" role="region">localhost (current main — yes, the irony is intentional), kestrel (alias), 3hz (security / Hytale context), naftali (hebrew name, used by people who know me).</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
-        <span><span style="color:var(--mauve);margin-right:8px" aria-hidden="true">$</span>what's 3hz?</span>
-        <span class="faq-ch" aria-hidden="true">▾</span>
-      </div>
-      <div class="faq-a" role="region">An older alias, still mine. Used in security contexts — on Hytale as a security-focused community helper. Low frequency, quiet signal.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
-        <span><span style="color:var(--mauve);margin-right:8px" aria-hidden="true">$</span>what are you doing now?</span>
-        <span class="faq-ch" aria-hidden="true">▾</span>
-      </div>
-      <div class="faq-a" role="region">I am joining Ace Computers in August 2026 as an incoming Level II Support professional, focused on Linux systems and HPC environments. I am not actively seeking a new role; my résumé and contact details are at mitchellberg.org.</div>
-    </div>
-
   </section>
 
-  <div class="divider"></div>
-
-  <footer class="footer">
-    <div style="margin-bottom:.4rem">
-      localhost · kestrel · 3hz · naftali · 2026
-      &nbsp;·&nbsp; <a href="https://3hz.dev">3hz.dev</a>
-      &nbsp;·&nbsp; <a href="https://naftaliro.dev">naftaliro.dev</a>
-      &nbsp;·&nbsp; <a href="https://mitchellberg.org">mitchellberg.org</a>
+  <!-- 4 · writing -->
+  <section class="win" id="writing" data-title="tree ~/writing" aria-labelledby="t-writing">
+    <header class="win-bar"><h2 id="t-writing"><b>kitty</b> ~/writing</h2><span class="win-meta">zsh</span></header>
+    <div class="win-body">
+      <p class="cmd"><span class="p-dir">~</span> <span class="p-arrow">❯</span> tree writing</p>
+      <p class="tree-root">writing/</p>
+      <ul class="tree">
+        <li>
+          <p class="tree-name">the-hastur-protocol.md <span class="badge wip">wip</span></p>
+          <p class="tree-meta">fiction · lovecraftian horror</p>
+          <p class="tree-desc">A neural network learns something it was never meant to know. What happens at the boundary between machine pattern and cosmic dread.</p>
+          <p class="tree-note">excerpt coming soon</p>
+        </li>
+        <li>
+          <p class="tree-name"><a href="https://naftaliro.dev/beating-the-game.html">beating-the-game.md</a> <span class="badge done">done</span></p>
+          <p class="tree-meta">philosophy · short fiction</p>
+          <p class="tree-desc">On nihilism, grief, and whether the game was ever worth playing. Written for myself, shared for whoever it finds.</p>
+          <p class="tree-note"><a href="https://naftaliro.dev/beating-the-game.html">read it on naftaliro.dev ↗</a></p>
+        </li>
+        <li class="tree-dir">
+          <p class="tree-name">dispatches-from-the-terminal/ <span class="badge empty">empty</span></p>
+          <p class="tree-meta">blog · no schedule · no SEO</p>
+          <p class="tree-desc">Linux, security, the nature of things. Informal. Whenever. Not started yet, but the intention is real.</p>
+        </li>
+      </ul>
+      <p class="tree-sum">1 directory, 2 files</p>
     </div>
-    <div style="color:var(--ov0);font-style:italic">the bird watches. the bird waits.<span class="cursor"></span></div>
-  </footer>
+  </section>
+
+  <!-- 5 · friends -->
+  <section class="win" id="friends" data-title="~/friends" aria-labelledby="t-friends">
+    <header class="win-bar"><h2 id="t-friends"><b>kitty</b> ~/friends</h2><span class="win-meta">88×31</span></header>
+    <div class="win-body">
+      <p class="cmd"><span class="p-dir">~</span> <span class="p-arrow">❯</span> ls friends</p>
+      <!--
+        to add a friend: copy one line and change the link, the image and the name.
+        drop their button in /buttons/friends/. .png is tried first, then .gif,
+        and if neither exists a little text button shows up instead.
+      -->
+      <div class="buttons">
+        <a href="https://williamhorning.dev/"><img src="buttons/friends/williamhorning.png" alt="williamhorning.dev" width="88" height="31"></a>
+        <a href="https://vavakado.xyz/"><img src="buttons/friends/vavakado.png" alt="vavakado.xyz" width="88" height="31"></a>
+        <a href="https://girlthi.ng/~thermia/"><img src="buttons/friends/thermia.png" alt="thermia" width="88" height="31"></a>
+        <a href="https://int4.cc/"><img src="buttons/friends/int4.png" alt="int4.cc" width="88" height="31"></a>
+        <a href="https://avascik.neocities.org/"><img src="buttons/friends/avascik.png" alt="avascik" width="88" height="31"></a>
+        <a href="https://saphingus.xyz/"><img src="buttons/friends/saphingus.png" alt="saphingus.xyz" width="88" height="31"></a>
+        <a href="https://pastelthepastel.github.io/"><img src="buttons/friends/pastel.png" alt="pastel" width="88" height="31"></a>
+        <a href="https://carsoncoder.com/"><img src="buttons/friends/carsoncoder.png" alt="carsoncoder.com" width="88" height="31"></a>
+        <a href="https://byte.at.awawa.club/"><img src="buttons/friends/byte.png" alt="byte" width="88" height="31"></a>
+        <a href="https://ecl1pzee.github.io/"><img src="buttons/friends/ecl1pzee.png" alt="ecl1pzee" width="88" height="31"></a>
+        <a href="https://heckadecimal.dev/"><img src="buttons/friends/heckadecimal.png" alt="heckadecimal.dev" width="88" height="31"></a>
+        <a href="https://a-catgirl.dev/"><img src="buttons/friends/a-catgirl.png" alt="a-catgirl.dev" width="88" height="31"></a>
+      </div>
+
+      <div class="linkme">
+        <p class="cmd"><span class="p-dir">~</span> <span class="p-arrow">❯</span> cat link-to-me.html</p>
+        <div class="linkme-row">
+          <a class="mybutton" href="https://3hz.dev"><img src="buttons/3hz.gif" alt="3hz.dev" width="88" height="31"></a>
+          <pre class="snippet" id="snippet"><code>&lt;a href="https://3hz.dev"&gt;&lt;img src="https://3hz.dev/buttons/3hz.gif" alt="3hz.dev" width="88" height="31"&gt;&lt;/a&gt;</code></pre>
+          <button class="copy" type="button" data-copy="snippet">copy</button>
+        </div>
+        <p class="linkme-note">hotlinking is fine. there's a still version at <a href="buttons/3hz.png">/buttons/3hz.png</a> too.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · man -->
+  <section class="win" id="man" data-title="man kestrel" aria-labelledby="t-man">
+    <header class="win-bar"><h2 id="t-man"><b>man</b> kestrel(1)</h2><span class="win-meta">faq</span></header>
+    <div class="win-body man">
+      <p class="man-head" aria-hidden="true"><span>KESTREL(1)</span><span class="man-mid">General Commands Manual</span><span>KESTREL(1)</span></p>
+
+      <div class="man-cols">
+        <div class="man-sec">
+          <h3>NAME</h3>
+          <p><b>kestrel</b> - small falcon, hovers perfectly still, watches everything below</p>
+        </div>
+
+        <div class="man-sec">
+          <h3>SYNOPSIS</h3>
+          <p><b>kestrel</b> <span class="nw">[<b>--alias</b> <i>localhost</i> | <i>3hz</i> | <i>naftali</i>]</span> <span class="nw">[<b>--quiet</b>]</span></p>
+        </div>
+
+        <div class="man-sec">
+          <h3>DESCRIPTION</h3>
+          <p>An alias. The person behind it goes by Naftali: Linux-focused technician, ESCP certified, top 30 globally in picoCTF 2019, now level II support at Ace Computers. The real-name stuff lives at <a href="https://mitchellberg.org">mitchellberg.org</a>.</p>
+        </div>
+
+        <div class="man-sec">
+          <h3>WHY KESTREL</h3>
+          <p>A kestrel is a small falcon. Sharp-eyed and patient, it hovers perfectly still while watching everything below it. Felt right. Birds are a genuine thing for me too. Grounding. The name picked itself.</p>
+        </div>
+
+        <div class="man-sec">
+          <h3>ALIASES</h3>
+          <dl class="man-opts">
+            <dt><b>localhost</b></dt><dd>current main. yes, the irony is intentional.</dd>
+            <dt><b>kestrel</b></dt><dd>see above.</dd>
+            <dt><b>3hz</b></dt><dd>older, still mine. used in security contexts, like helping out as a security-minded community member on Hytale. low frequency, quiet signal.</dd>
+            <dt><b>naftali</b></dt><dd>my hebrew name, used by people who know me.</dd>
+          </dl>
+        </div>
+
+        <div class="man-sec">
+          <h3>STATUS</h3>
+          <p>Doing level II support at Ace Computers, focused on Linux systems and HPC. Not looking for a new role. Résumé and contact details are at <a href="https://mitchellberg.org">mitchellberg.org</a>.</p>
+        </div>
+
+        <div class="man-sec">
+          <h3>KEYS</h3>
+          <dl class="man-opts">
+            <dt><kbd>1</kbd>-<kbd>6</kbd></dt><dd>jump between workspaces</dd>
+            <dt><kbd>t</kbd></dt><dd>cycle catppuccin flavor</dd>
+          </dl>
+        </div>
+
+        <div class="man-sec">
+          <h3>BUGS</h3>
+          <p>Most projects are unfinished. This is known and accepted.</p>
+        </div>
+
+        <div class="man-sec">
+          <h3>SEE ALSO</h3>
+          <p><a href="https://naftaliro.dev">naftaliro.dev</a>(1), <a href="https://mitchellberg.org">mitchellberg.org</a>(7), <a href="pgp.txt">pgp.txt</a>(5)</p>
+        </div>
+      </div>
+
+      <p class="man-head man-foot" aria-hidden="true"><span>3hz.dev</span><span class="man-mid">September 2026</span><span>KESTREL(1)</span></p>
+    </div>
+  </section>
 
 </main>
 
-<script>
-  function toggleFaq(el) {
-    const answer = el.nextElementSibling;
-    const chevron = el.querySelector('.faq-ch');
-    const isOpen = answer.classList.contains('open');
-    document.querySelectorAll('.faq-a.open').forEach(x => x.classList.remove('open'));
-    document.querySelectorAll('.faq-ch.open').forEach(x => x.classList.remove('open'));
-    document.querySelectorAll('.faq-q').forEach(x => x.setAttribute('aria-expanded','false'));
-    if (!isOpen) {
-      answer.classList.add('open');
-      chevron.classList.add('open');
-      el.setAttribute('aria-expanded','true');
-    }
-  }
-  // keyboard support for faq
-  document.querySelectorAll('.faq-q').forEach(el => {
-    el.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFaq(el); }
-    });
-  });
-</script>
+<footer class="foot">
+  <p class="foot-line">the bird watches. the bird waits.<span class="cursor" aria-hidden="true"></span></p>
+  <p class="foot-small">
+    <a href="https://3hz.dev">3hz.dev</a> · <a href="https://naftaliro.dev">naftaliro.dev</a> · <a href="https://mitchellberg.org">mitchellberg.org</a>
+    <br>localhost · kestrel · 3hz · naftali · 2026
+  </p>
+</footer>
 
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>

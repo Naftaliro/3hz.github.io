@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>404 · 3hz</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#1e1e2e">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script>
+    try { var f = localStorage.getItem('flavor'); if (f) document.documentElement.dataset.flavor = f; } catch (e) {}
+    document.documentElement.classList.add('js');
+  </script>
+  <style>
+    .lost { max-width: 640px; margin: 12vh auto 0; padding: 0 10px; }
+    .lost .win-body p + p { margin-top: 4px; }
+    .err { color: var(--red); }
+    .dim { color: var(--overlay1); }
+    .lost .home { display: inline-block; margin-top: 18px; padding: 6px 14px; color: var(--crust); background: var(--mauve); border-radius: 7px; text-decoration: none; }
+    .lost .home:hover { background: var(--lavender); color: var(--crust); }
+  </style>
+</head>
+<body>
+
+<canvas id="wall" aria-hidden="true"></canvas>
+
+<header class="bar">
+  <a class="bar-logo" href="/" aria-label="3hz home">
+    <svg viewBox="0 0 24 12" aria-hidden="true"><path d="M0 6 Q2 0 4 6 T8 6 T12 6 T16 6 T20 6 T24 6"/></svg>
+    <span>3hz</span>
+  </a>
+  <nav class="ws" aria-label="sections">
+    <a href="/#fetch" data-ws="fetch"><b>1</b><span>~</span></a>
+    <a href="/#about" data-ws="about"><b>2</b><span>about</span></a>
+    <a href="/#projects" data-ws="projects"><b>3</b><span>code</span></a>
+    <a href="/#writing" data-ws="writing"><b>4</b><span>words</span></a>
+    <a href="/#friends" data-ws="friends"><b>5</b><span>friends</span></a>
+    <a href="/#man" data-ws="man"><b>6</b><span>man</span></a>
+  </nav>
+  <div class="bar-title" aria-hidden="true"><span id="bar-title">404</span></div>
+  <div class="bar-mods">
+    <button class="mod mod-flavor" id="flavor" type="button" title="switch catppuccin flavor (t)">
+      <span class="swatch" aria-hidden="true"></span><span id="flavor-name">mocha</span>
+    </button>
+    <span class="mod mod-clock" title="my local time (chicago)"><time id="clock">--:--</time></span>
+  </div>
+</header>
+
+<main class="lost">
+  <section class="win" id="lost" data-title="kitty 404" aria-labelledby="t-lost">
+    <header class="win-bar"><h1 id="t-lost"><b>kitty</b> ~</h1><span class="win-meta">exit 1</span></header>
+    <div class="win-body">
+      <p class="cmd"><span class="p-dir">~</span> <span class="p-arrow">❯</span> cd <span id="path">/somewhere</span></p>
+      <p class="err">cd: no such file or directory: <span id="path2">/somewhere</span></p>
+      <p class="cmd" style="margin-top:10px"><span class="p-dir">~</span> <span class="p-arrow" style="color:var(--red)">❯</span> <span class="dim">the kestrel looked everywhere. nothing down there.</span></p>
+      <a class="home" href="/">cd ~</a>
+    </div>
+  </section>
+</main>
+
+<script>
+  document.getElementById('path').textContent = document.getElementById('path2').textContent = location.pathname;
+</script>
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>
