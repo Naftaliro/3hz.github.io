@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-grab 88x31 buttons from friends' sites for the ~/friends window.
+grab 88x31 buttons from friends' sites for the ~/88x31 window.
 
     python3 _tools/grab_buttons.py              crawl, then pick in your browser
     python3 _tools/grab_buttons.py --auto       skip the picker, take the default picks
@@ -360,6 +360,16 @@ def slug(key):
     return s[:60] or "button"
 
 
+def site_name(key):
+    """the distinctive part of an address: vavakado.xyz -> vavakado, girlthi.ng/~thermia -> thermia.
+    empty when it's too generic to trust (a number, or a word like "trans" from trans.wiki)"""
+    name = key.rsplit("/", 1)[1].lstrip("~@") if "/" in key else key.split(":")[0].split(".")[0]
+    name = name.lower()
+    if len(name) < 3 or name.isdigit() or any(name == w for w, _ in WORD_RES):
+        return ""
+    return name
+
+
 def display(key):
     if "/~" in key:
         return key.split("/", 1)[1]
@@ -424,7 +434,12 @@ def gather(friends, workers=8):
             key = alias[key]
             kind, why = "friend", "your friend"
         else:
-            why = not_people_host(href) or not_people_words(c["alt"], c["title"], c["text"], urllib.parse.unquote(c["src"].rsplit("/", 1)[-1]))
+            words = (c["alt"], c["title"], c["text"], urllib.parse.unquote(c["src"].rsplit("/", 1)[-1]))
+            # a button named after the site it links to is that person's own button, even
+            # if it describes them ("vavakado (a wonderful enby) button" -> vavakado.xyz)
+            name = site_name(key)
+            named = bool(name) and name in " ".join(w for w in words if w).lower()
+            why = not_people_host(href) or (None if named else not_people_words(*words))
             kind = "other" if why else "person"
             if kind == "person":
                 why = "personal site"
