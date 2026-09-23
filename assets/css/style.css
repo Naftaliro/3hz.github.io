@@ -462,6 +462,10 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
 .buttons a:hover .btn-fallback { border-color: var(--mauve); }
 
 .linkme { margin-top: 22px; padding-top: 14px; border-top: 1px dashed var(--surface1); }
+/* no friends' buttons yet: hide the empty wall and just show mine */
+#friends:not(:has(.buttons a)) .win-body > .cmd,
+#friends:not(:has(.buttons a)) .buttons { display: none; }
+#friends:not(:has(.buttons a)) .linkme { margin: 0; padding: 0; border: 0; }
 .linkme-row { display: flex; align-items: center; gap: 12px; }
 .snippet {
   flex: 1; min-width: 0;
@@ -526,6 +530,9 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
   #friends .linkme { margin: 0; padding: 0 0 0 26px; border: 0; border-left: 1px dashed var(--surface1); }
   #friends .linkme-row { flex-wrap: wrap; }
   #friends .snippet { flex-basis: 100%; order: 3; }
+  #friends:not(:has(.buttons a)) .win-body { display: block; }
+  #friends:not(:has(.buttons a)) .linkme-row { flex-wrap: nowrap; }
+  #friends:not(:has(.buttons a)) .snippet { flex-basis: auto; order: 0; }
   .man-cols { columns: 2; column-gap: 56px; column-rule: 1px dashed var(--surface1); }
   .man-sec { break-inside: avoid; }
   .man-sec:first-child h3 { margin-top: 0; }

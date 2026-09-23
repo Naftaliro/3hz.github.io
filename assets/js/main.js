@@ -73,18 +73,25 @@
   let tabbing = false;
   addEventListener('keydown', e => { if (e.key === 'Tab') tabbing = true; }, true);
   addEventListener('pointerdown', () => { tabbing = false; }, true);
+  // after jumping to a window (link, workspace, number key) keep it focused while the
+  // page settles, even if it's too short to reach the 40% line
+  let holdUntil = 0;
+  const jumpTo = win => { focus(win); holdUntil = performance.now() + 900; };
   let scrollQueued = false;
   addEventListener('scroll', () => {
     if (scrollQueued) return;
     scrollQueued = true;
     requestAnimationFrame(() => {
       scrollQueued = false;
+      if (performance.now() < holdUntil) return;
       if (!hovered && !(tabbing && document.activeElement?.closest('.win'))) focusByScroll();
     });
   }, { passive: true });
+  const fromHash = () => location.hash && wins.find(w => '#' + w.id === location.hash);
+  addEventListener('hashchange', () => { const t = fromHash(); if (t) jumpTo(t); });
   // start on whatever the url points at (3hz.dev/#friends), else wherever the page loaded
-  const target = location.hash && wins.find(w => '#' + w.id === location.hash);
-  if (target) focus(target);
+  const target = fromHash();
+  if (target) jumpTo(target);
   else if (scrollY > 0) focusByScroll();
   if (!focused) focus($('#fetch') || wins[0]);
 
@@ -97,7 +104,7 @@
       const win = document.getElementById(wsLinks[n - 1].dataset.ws);
       if (!win) { location.href = wsLinks[n - 1].href; return; }
       win.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-      focus(win);
+      jumpTo(win);
     } else if (e.key === 't') {
       nextFlavor();
     }

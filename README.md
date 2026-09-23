@@ -36,8 +36,9 @@ the images in `buttons/friends/` and rewrites the list in `index.html`.
   what filename to use if you get one later
 - on macOS, if it says ssl error: run the `Install Certificates.command` that came with
   python, or `pip3 install certifi`
-- to add one by hand: drop the image in `buttons/friends/` and copy a line between the
-  `buttons:start` / `buttons:end` comments
+- to add one by hand: drop the image in `buttons/friends/` and add a line between the
+  `buttons:start` / `buttons:end` comments (there's an example right above them)
+- while that list is empty, the wall is hidden and the window just shows my own button
 
 ## keeping it fresh
 
