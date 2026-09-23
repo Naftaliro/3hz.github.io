@@ -29,6 +29,9 @@ the images in `buttons/friends/` and rewrites the list in `index.html`.
 - your picks are remembered in `_tools/buttons.json`, so running it again later only really
   asks about new buttons
 - `--dry-run` just lists what it found, `--auto` skips the picker and takes the defaults
+- `--drop KEY` / `--keep KEY` untick or tick specific buttons without the picker. the keys
+  are in the `--dry-run` list (like `int4.cc` or `girlthi.ng/~thermia`)
+- if a friend's site is down when you run it, the button you already saved for them stays
 - if a friend doesn't have a button yet, they get a little text one. the script tells you
   what filename to use if you get one later
 - on macOS, if it says ssl error: run the `Install Certificates.command` that came with

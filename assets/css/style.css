@@ -34,9 +34,15 @@
   color-scheme: dark;
 }
 [data-flavor="latte"] {
-  --rosewater:#dc8a78; --flamingo:#dd7878; --pink:#ea76cb; --mauve:#8839ef; --red:#d20f39; --maroon:#e64553;
-  --peach:#fe640b; --yellow:#df8e1d; --green:#40a02b; --teal:#179299; --sky:#04a5e5; --sapphire:#209fb5;
-  --blue:#1e66f5; --lavender:#7287fd; --text:#4c4f69; --subtext1:#5c5f77; --subtext0:#6c6f85;
+  /* latte's accents are pastel enough that small text on a light background gets
+     hard to read, so these are the same hues pulled darker (oklch lightness only)
+     until they pass wcag aa. the originals are in the comments. */
+  --rosewater:#974b3c; /* #dc8a78 */ --flamingo:#a24346; /* #dd7878 */ --pink:#a33389;  /* #ea76cb */
+  --mauve:#802ce4;     /* #8839ef */ --red:#c20f35;      /* #d20f39 */ --maroon:#c01935; /* #e64553 */
+  --peach:#aa4005;     /* #fe640b */ --yellow:#8a5507;   /* #df8e1d */ --green:#1f7107;  /* #40a02b */
+  --teal:#056d73;      /* #179299 */ --sky:#046993;      /* #04a5e5 */ --sapphire:#076c7c; /* #209fb5 */
+  --blue:#0b55e3;      /* #1e66f5 */ --lavender:#4755c6; /* #7287fd */
+  --text:#4c4f69; --subtext1:#5c5f77; --subtext0:#5c5f77; /* #6c6f85 */
   --overlay2:#7c7f93; --overlay1:#8c8fa1; --overlay0:#9ca0b0; --surface2:#acb0be; --surface1:#bcc0cc;
   --surface0:#ccd0da; --base:#eff1f5; --mantle:#e6e9ef; --crust:#dce0e8;
   color-scheme: light;
@@ -50,12 +56,18 @@
   --border: 2px;
   --win-bg: color-mix(in srgb, var(--base) 84%, transparent);
   --bar-bg: color-mix(in srgb, var(--mantle) 88%, transparent);
-  --active: conic-gradient(from var(--angle), var(--mauve), var(--lavender), var(--pink), var(--mauve));
   --mono: "Iosevka", "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --pixel: "Silkscreen", var(--mono);
-  --dim: var(--overlay2);  /* secondary text */
+  --dim: var(--subtext0);        /* secondary text */
+  --pill: color-mix(in srgb, var(--surface0) 70%, var(--mantle));  /* bar modules */
+  --sel: var(--surface0);        /* selected / hovered rows */
+  --on-accent: var(--crust);     /* text sitting on an accent color */
 }
-[data-flavor="latte"] { --dim: var(--subtext0); }
+:root[data-flavor="latte"] { --pill: var(--base); --sel: var(--crust); --on-accent: var(--base); }
+/* older browsers without color-mix() get solid windows instead of see-through ones */
+@supports not (color: color-mix(in srgb, red, blue)) {
+  :root { --win-bg: var(--base); --bar-bg: var(--mantle); --pill: var(--surface0); }
+}
 
 @property --angle { syntax: "<angle>"; inherits: false; initial-value: 45deg; }
 
@@ -81,7 +93,8 @@ b { font-weight: 700; }
 kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--surface2); border-bottom-width: 2px; border-radius: 4px; color: var(--subtext1); }
 .ic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
-.skip { position: absolute; left: -999px; top: 8px; z-index: 50; background: var(--mauve); color: var(--crust); padding: 4px 10px; border-radius: 6px; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip { position: absolute; left: -999px; top: 8px; z-index: 50; background: var(--mauve); color: var(--on-accent); padding: 4px 10px; border-radius: 6px; }
 .skip:focus { left: 8px; }
 
 /* the wallpaper canvas sits behind everything */
@@ -98,6 +111,7 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
 .bar {
   position: sticky; top: 10px; z-index: 20;
   display: flex; align-items: center; gap: 10px;
+  width: calc(100% - 20px);
   max-width: 1200px;
   height: 42px;
   margin: 10px auto 0;
@@ -114,14 +128,14 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
 .bar-logo {
   display: flex; align-items: center; gap: 7px;
   height: 30px; padding: 0 10px;
-  color: var(--crust);
+  color: var(--on-accent);
   background: var(--mauve);
   border-radius: 7px;
   font-family: var(--pixel);
   font-size: 13px;
   letter-spacing: .02em;
 }
-.bar-logo:hover { color: var(--crust); background: var(--lavender); }
+.bar-logo:hover { color: var(--on-accent); background: var(--lavender); }
 .bar-logo svg { width: 24px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
 
 .ws { display: flex; gap: 2px; }
@@ -131,9 +145,9 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
   color: var(--dim);
   border-radius: 7px;
 }
-.ws a b { color: var(--overlay2); font-weight: 700; }
-.ws a:hover { background: var(--surface0); color: var(--text); }
-.ws a[aria-current="true"] { background: var(--surface0); color: var(--text); }
+.ws a b { color: var(--dim); font-weight: 700; }
+.ws a:hover { background: var(--pill); color: var(--text); }
+.ws a[aria-current="true"] { background: var(--pill); color: var(--text); }
 .ws a[aria-current="true"] b { color: var(--mauve); }
 
 .bar-title {
@@ -149,14 +163,14 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
   height: 30px; padding: 0 11px;
   font: inherit;
   color: var(--subtext1);
-  background: var(--surface0);
+  background: var(--pill);
   border: 0;
   border-radius: 7px;
   white-space: nowrap;
 }
 .mod-cpu { color: var(--peach); }
 .mod-clock { color: var(--lavender); }
-.mod-clock .day { color: var(--overlay2); }
+.mod-clock .day { color: var(--dim); }
 .mod-flavor { color: var(--mauve); cursor: pointer; }
 .mod-flavor:hover { background: var(--surface1); }
 .swatch { width: 11px; height: 11px; border-radius: 50%; background: conic-gradient(var(--mauve) 0 25%, var(--pink) 0 50%, var(--lavender) 0 75%, var(--blue) 0); }
@@ -172,7 +186,6 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
 }
 
 .win {
-  --angle: 45deg;
   position: relative;
   display: flex; flex-direction: column;
   min-width: 0;
@@ -194,8 +207,10 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
   pointer-events: none;
 }
-.win.is-focused::before { background: var(--active); animation: borderangle 8s linear infinite; }
-html:not(.js) .win:hover::before { background: var(--active); }
+.win.is-focused::before, html:not(.js) .win:hover::before {
+  background: conic-gradient(from var(--angle), var(--mauve), var(--lavender), var(--pink), var(--mauve));
+}
+.win.is-focused::before { animation: borderangle 8s linear infinite; }
 @keyframes borderangle { to { --angle: 405deg; } }
 
 .win-bar {
@@ -205,10 +220,10 @@ html:not(.js) .win:hover::before { background: var(--active); }
   color: var(--dim);
   border-bottom: 1px solid var(--surface0);
 }
-.win-bar h1, .win-bar h2 { font-size: inherit; font-weight: 400; color: var(--subtext0); }
-.win-bar h1 b, .win-bar h2 b { color: var(--subtext1); margin-right: 4px; }
-.win.is-focused .win-bar h1 b, .win.is-focused .win-bar h2 b { color: var(--mauve); }
-.win-meta { color: var(--overlay0); }
+.win-bar h1, .win-bar h2, .win-title { font-size: inherit; font-weight: 400; color: var(--subtext0); }
+.win-bar b { color: var(--subtext1); margin-right: 4px; }
+.win.is-focused .win-bar b { color: var(--mauve); }
+.win-meta { color: var(--dim); }
 .win-body { flex: 1; padding: 14px 18px 18px; }
 
 /* the shell prompt at the top of terminal windows */
@@ -263,12 +278,15 @@ html:not(.js) .win:hover::before { background: var(--active); }
 .r-desc { color: var(--dim); font-size: 13.5px; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* first entry is "selected" until you point at another one */
 .rofi-list li:first-child a,
-.rofi-list a:hover, .rofi-list a:focus-visible { background: var(--surface0); color: var(--text); }
+.rofi-list a:hover, .rofi-list a:focus-visible { background: var(--sel); color: var(--text); }
 .rofi-list li:first-child a .ic,
 .rofi-list a:hover .ic, .rofi-list a:focus-visible .ic { color: var(--mauve); }
+.rofi-list li:first-child a .r-desc,
+.rofi-list a:hover .r-desc, .rofi-list a:focus-visible .r-desc { color: var(--subtext1); }
 .rofi-list:hover li:first-child a:not(:hover) { background: none; }
+.rofi-list:hover li:first-child a:not(:hover) .r-desc { color: var(--dim); }
 .rofi-list:hover li:first-child a:not(:hover) .ic { color: var(--overlay2); }
-.rofi-list a[aria-current] .r-name { color: var(--overlay2); }
+.rofi-list a[aria-current] .r-name { color: var(--dim); }
 .rofi-foot { margin-top: auto; font-size: 12.5px; color: var(--overlay0); text-align: right; }
 
 /* ── nvim ─────────────────────────────────────────────── */
@@ -278,11 +296,11 @@ html:not(.js) .win:hover::before { background: var(--active); }
 .nv-line { display: grid; grid-template-columns: 4.5ch 1fr; column-gap: 1.5ch; }
 .nv-line + .nv-line { margin-top: 10px; }
 .ln { text-align: right; color: var(--surface2); user-select: none; }
-.nv-line:first-child { background: color-mix(in srgb, var(--surface0) 45%, transparent); }
+.nv-line:first-child { background: color-mix(in srgb, var(--sel) 45%, transparent); }
 .nv-line:first-child .ln { color: var(--lavender); }
 .nv-line p { color: var(--text); }
-.md-h { color: var(--mauve) !important; font-weight: 700; }
-.nv-line:nth-child(5) .md-h { color: var(--peach) !important; }
+.nv-line .md-h { color: var(--mauve); font-weight: 700; }
+.nv-line .md-h2 { color: var(--peach); }
 .md-list li { padding-left: 2ch; text-indent: -2ch; }
 .md-list li::before { content: "- "; color: var(--teal); }
 .nv-tilde { margin-top: 10px; padding-left: 2ch; color: var(--surface1); line-height: 1.5; user-select: none; }
@@ -295,11 +313,11 @@ html:not(.js) .win:hover::before { background: var(--active); }
   overflow: hidden;
 }
 .nv-status > span { padding: 0 12px; white-space: nowrap; }
-.nv-mode { background: var(--mauve); color: var(--crust); font-weight: 700; }
+.nv-mode { background: var(--mauve); color: var(--on-accent); font-weight: 700; }
 .nv-file { background: var(--surface0); color: var(--text); }
 .nv-fill { flex: 1; }
 .nv-ft { color: var(--overlay1); }
-.nv-pos { background: var(--mauve); color: var(--crust); font-weight: 700; }
+.nv-pos { background: var(--mauve); color: var(--on-accent); font-weight: 700; }
 
 /* ── now + cava ───────────────────────────────────────── */
 
@@ -352,7 +370,7 @@ html:not(.js) .win:hover::before { background: var(--active); }
   text-decoration: none;
   border-radius: 7px;
 }
-.ls a:hover, .ls a:focus-visible { background: color-mix(in srgb, var(--surface0) 70%, transparent); color: var(--text); }
+.ls a:hover, .ls a:focus-visible { background: color-mix(in srgb, var(--sel) 70%, transparent); color: var(--text); }
 .ls-perm { color: var(--overlay0); }
 /* the date column only shows up once github has answered (see main.js) */
 .ls-date { display: none; color: var(--dim); white-space: pre; }
@@ -393,9 +411,9 @@ html:not(.js) .win:hover::before { background: var(--active); }
   vertical-align: 1px;
   border-radius: 4px;
 }
-.badge.wip { color: var(--crust); background: var(--yellow); }
-.badge.done { color: var(--crust); background: var(--green); }
-.badge.empty { color: var(--subtext0); background: var(--surface0); }
+.badge.wip { color: var(--on-accent); background: var(--yellow); }
+.badge.done { color: var(--on-accent); background: var(--green); }
+.badge.empty { color: var(--subtext1); background: var(--sel); }
 
 /* ── man ──────────────────────────────────────────────── */
 
@@ -459,7 +477,7 @@ html:not(.js) .win:hover::before { background: var(--active); }
 .copy {
   font: inherit; font-size: 13px;
   padding: 6px 12px;
-  color: var(--crust);
+  color: var(--on-accent);
   background: var(--mauve);
   border: 0; border-radius: 7px;
   cursor: pointer;
@@ -518,12 +536,13 @@ html:not(.js) .win:hover::before { background: var(--active); }
   .bar { max-width: 740px; }
   .bar-title { display: none; }
   .bar-mods { margin-left: auto; }
+  .mod-cpu { display: none; }
 }
 
 @media (max-width: 720px) {
   body { font-size: 15px; }
   :root { --gap: 10px; --win-bg: var(--base); --bar-bg: var(--mantle); }
-  .bar { margin: 8px 8px 0; top: 8px; gap: 6px; padding: 0 4px; }
+  .bar { width: calc(100% - 16px); margin: 8px auto 0; top: 8px; gap: 6px; padding: 0 4px; }
   .desk { padding: var(--gap) 8px; }
   .win, .bar { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .ws a { padding: 0 8px; }
@@ -553,6 +572,7 @@ html:not(.js) .win:hover::before { background: var(--active); }
 @media (max-width: 380px) {
   .ws a { padding: 0 6px; }
   .mod-clock { display: none; }
+  .nw { white-space: normal; }
 }
 
 @media (prefers-reduced-motion: reduce) {
