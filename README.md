@@ -14,11 +14,39 @@ my corner of the internet. plain html, css and js. no framework, no build step.
 | `_tools/button.py` | redraws my button and the favicons |
 | `404.html` | for when the kestrel can't find something |
 
-## common edits
+## friends' buttons
 
-**add a friend's button.** save it as `buttons/friends/<name>.png` (or `.gif`, both work).
-then in `index.html`, find `ls friends`, copy one of the lines under it and change the link,
-the image name and the alt text. if the image is missing, a little text button shows up instead.
+```sh
+python3 _tools/grab_buttons.py
+```
+
+visits everyone in `FRIENDS` (top of the script), plus their links/buttons pages, and finds
+every 88x31. it sorts them into your friends, people your friends link to, and stuff that
+isn't a person (distros, browsers, causes, "made with" badges, repos). then a page opens in
+your browser with the people ticked. untick anyone you don't want, hit save, and it drops
+the images in `buttons/friends/` and rewrites the list in `index.html`.
+
+- your picks are remembered in `_tools/buttons.json`, so running it again later only really
+  asks about new buttons
+- `--dry-run` just lists what it found, `--auto` skips the picker and takes the defaults
+- if a friend doesn't have a button yet, they get a little text one. the script tells you
+  what filename to use if you get one later
+- on macOS, if it says ssl error: run the `Install Certificates.command` that came with
+  python, or `pip3 install certifi`
+- to add one by hand: drop the image in `buttons/friends/` and copy a line between the
+  `buttons:start` / `buttons:end` comments
+
+## keeping it fresh
+
+stuff that goes out of date when life changes. `grep -n 2026 index.html` finds most dates.
+
+- **job:** the `work` line in fetch, line 3 of about.md, and DESCRIPTION + STATUS in the man page
+- **~/.now:** the four lines, plus the month in its title bar (`sep 2026`)
+- **man page:** the date in its footer line
+- **projects:** the dates and the pz-server-manager release count update themselves from
+  github (cached an hour per visitor). the descriptions and the list itself don't
+
+## common edits
 
 **update ~/.now.** it's the `now` window in `index.html`, a list of `<dt>`/`<dd>` pairs.
 
