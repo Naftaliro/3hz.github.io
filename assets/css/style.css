@@ -344,8 +344,8 @@ html:not(.js) .win:hover::before { background: var(--active); }
 .ls-total { color: var(--dim); margin-bottom: 4px; }
 .ls a {
   display: grid;
-  grid-template-columns: 11ch minmax(0, 23ch) minmax(0, 1fr) auto;
-  column-gap: 2ch;
+  grid-template-columns: 10ch minmax(0, 21ch) minmax(0, 1fr) auto;
+  column-gap: 1.5ch;
   padding: 7px 10px;
   margin: 0 -10px;
   color: var(--text);
@@ -354,6 +354,11 @@ html:not(.js) .win:hover::before { background: var(--active); }
 }
 .ls a:hover, .ls a:focus-visible { background: color-mix(in srgb, var(--surface0) 70%, transparent); color: var(--text); }
 .ls-perm { color: var(--overlay0); }
+/* the date column only shows up once github has answered (see main.js) */
+.ls-date { display: none; color: var(--dim); white-space: pre; }
+.ls.has-dates a { grid-template-columns: 10ch 8ch minmax(0, 21ch) minmax(0, 1fr) auto; }
+.ls.has-dates .ls-date { display: block; }
+.ls.has-dates .ls-desc { grid-column: 3 / -1; }
 .ls-name { color: var(--blue); font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ls a:hover .ls-name { text-decoration: underline; text-underline-offset: 3px; }
 .ls-file .ls-name { color: var(--text); font-weight: 400; }
@@ -531,11 +536,12 @@ html:not(.js) .win:hover::before { background: var(--active); }
   .fetch { flex-direction: column; gap: 14px; }
   .fetch-logo img { width: 120px; height: 120px; }
   .fetch-colors i { width: 24px; }
-  .ls a { grid-template-columns: minmax(0, 1fr) auto; }
+  .ls a, .ls.has-dates a { grid-template-columns: minmax(0, 1fr) auto; }
   .ls-perm { display: none; }
   .ls-lang { grid-column: 1; grid-row: 2; }
   .ls-tag { grid-column: 2; grid-row: 1; }
-  .ls-desc { grid-column: 1 / -1; }
+  .ls-date { grid-column: 2; grid-row: 2; text-align: right; }
+  .ls-desc, .ls.has-dates .ls-desc { grid-column: 1 / -1; }
   .man h3 + p, .man h3 + dl, .man-opts dd { margin-left: 3ch; }
   .man-mid { display: none; }
   .linkme-row { flex-wrap: wrap; }

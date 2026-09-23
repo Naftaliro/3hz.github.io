@@ -122,6 +122,43 @@
     if (img.complete && img.naturalWidth === 0) onButtonError(img);
   });
 
+  /* ── projects: real dates + release counts from github ── */
+  // so ls -l never lies. cached for an hour, and if github says no, the page
+  // just keeps what's written in the html.
+
+  (async () => {
+    const rows = $$('.ls a[data-repo]');
+    if (!rows.length) return;
+    const USER = 'Naftaliro';
+    let gh = null;
+    try { const c = JSON.parse(localStorage.getItem('gh')); if (c && Date.now() - c.t < 36e5) gh = c; } catch (e) {}
+    if (!gh) {
+      try {
+        const get = u => fetch('https://api.github.com/' + u).then(r => (r.ok ? r.json() : Promise.reject(r.status)));
+        const repos = await get(`users/${USER}/repos?per_page=100&sort=pushed`);
+        gh = { t: Date.now(), pushed: {}, releases: {} };
+        repos.forEach(r => { gh.pushed[r.name] = r.pushed_at; });
+        for (const el of $$('[data-releases]')) {
+          const rel = await get(`repos/${USER}/${el.dataset.releases}/releases?per_page=100`).catch(() => null);
+          if (rel) gh.releases[el.dataset.releases] = rel.filter(x => !x.draft).length;
+        }
+        try { localStorage.setItem('gh', JSON.stringify(gh)); } catch (e) {}
+      } catch (e) { return; }
+    }
+    const lsDate = iso => {
+      const d = new Date(iso), mon = d.toLocaleString('en-US', { month: 'short' });
+      return Date.now() - d < 180 * 864e5 ? `${mon} ${String(d.getDate()).padStart(2, ' ')}` : `${mon} ${d.getFullYear()}`;
+    };
+    const newest = Object.values(gh.pushed).sort().pop();
+    rows.forEach(a => {
+      const iso = a.dataset.repo === '*' ? newest : gh.pushed[a.dataset.repo];
+      const el = $('.ls-date', a);
+      if (iso && el) { el.textContent = lsDate(iso); el.title = 'last push ' + new Date(iso).toLocaleDateString(); }
+    });
+    if ($$('.ls-date').some(el => el.textContent)) $('.ls').classList.add('has-dates');
+    $$('[data-releases]').forEach(el => { const n = gh.releases[el.dataset.releases]; if (n) el.textContent = n; });
+  })();
+
   /* ── copy the link-to-me snippet ──────────────────── */
 
   $$('.copy').forEach(btn => btn.addEventListener('click', async () => {
