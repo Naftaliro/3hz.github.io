@@ -85,7 +85,7 @@
 
   <!-- 1 · fetch -->
   <section class="win" id="fetch" data-title="kitty ~ fastfetch" aria-labelledby="t-fetch">
-    <header class="win-bar"><h2 id="t-fetch"><b>kitty</b> ~</h2><span class="win-meta">zsh</span></header>
+    <header class="win-bar"><span class="win-title"><b>kitty</b> ~</span><span class="win-meta">zsh</span></header>
     <div class="win-body">
       <p class="cmd"><span class="p-dir">~</span> <span class="p-arrow">❯</span> fastfetch</p>
       <div class="fetch">
@@ -93,7 +93,7 @@
           <img src="assets/img/avatar-320.webp" srcset="assets/img/avatar-320.webp 320w, assets/img/avatar-640.webp 640w" sizes="170px" width="170" height="170" alt="drawing of me with curly hair and glasses, winking with my tongue out, hands on my cheeks">
         </div>
         <div class="fetch-info">
-          <h1 class="fetch-head"><span class="u">localhost</span><span class="at">@</span><span class="h">3hz</span></h1>
+          <h1 class="fetch-head" id="t-fetch"><span class="u">localhost</span><span class="at">@</span><span class="h">3hz</span></h1>
           <div class="fetch-rule" aria-hidden="true">─────────────</div>
           <dl>
             <div><dt>aka</dt><dd>kestrel · 3hz · naftali</dd></div>
@@ -117,7 +117,7 @@
 
   <!-- links -->
   <section class="win" id="links" data-title="rofi -show links" aria-labelledby="t-links">
-    <header class="win-bar"><h2 id="t-links"><b>rofi</b> links</h2><span class="win-meta">drun</span></header>
+    <header class="win-bar"><h2 id="t-links"><span class="sr-only">links</span><span aria-hidden="true"><b>rofi</b> links</span></h2><span class="win-meta">drun</span></header>
     <div class="win-body rofi">
       <div class="rofi-input" aria-hidden="true">
         <svg class="ic"><use href="#i-search"/></svg><span>links</span><span class="caret"></span>
@@ -136,14 +136,14 @@
 
   <!-- 2 · about -->
   <section class="win" id="about" data-title="nvim about.md" aria-labelledby="t-about">
-    <header class="win-bar"><h2 id="t-about"><b>nvim</b> about.md</h2><span class="win-meta">markdown</span></header>
+    <header class="win-bar"><h2 id="t-about"><span class="sr-only">about</span><span aria-hidden="true"><b>nvim</b> about.md</span></h2><span class="win-meta">markdown</span></header>
     <div class="win-body nvim">
       <div class="nv-buf">
         <div class="nv-line"><span class="ln" aria-hidden="true">1</span><p class="md-h"><span aria-hidden="true"># </span>about</p></div>
         <div class="nv-line"><span class="ln" aria-hidden="true">2</span><p>Linux-minded technician, curious builder, and part-time philosopher. I fix things, break things on purpose, and write about what I find in between.</p></div>
         <div class="nv-line"><span class="ln" aria-hidden="true">3</span><p>These days I'm doing level II support at Ace Computers, mostly custom-built systems, Linux, and HPC environments.</p></div>
         <div class="nv-line"><span class="ln" aria-hidden="true">4</span><p>Also: birds, anime, piano, and chasing the kind of clarity that doesn't come easy. The alias is a bird that hovers perfectly still while watching everything below it. Felt accurate.</p></div>
-        <div class="nv-line"><span class="ln" aria-hidden="true">5</span><p class="md-h"><span aria-hidden="true">## </span>things i like</p></div>
+        <div class="nv-line"><span class="ln" aria-hidden="true">5</span><p class="md-h md-h2"><span aria-hidden="true">## </span>things i like</p></div>
         <div class="nv-line"><span class="ln" aria-hidden="true">6</span><ul class="md-list">
           <li>birdwatching, nature, slow mornings</li>
           <li>vinland saga, steins;gate, frieren</li>
@@ -161,7 +161,7 @@
 
   <!-- now -->
   <section class="win" id="now" data-title="cat ~/.now" aria-labelledby="t-now">
-    <header class="win-bar"><h2 id="t-now"><b>kitty</b> ~/.now</h2><span class="win-meta">sep 2026</span></header>
+    <header class="win-bar"><h2 id="t-now"><span class="sr-only">now</span><span aria-hidden="true"><b>kitty</b> ~/.now</span></h2><span class="win-meta">sep 2026</span></header>
     <div class="win-body now">
       <p class="cmd"><span class="p-dir">~</span> <span class="p-arrow">❯</span> cat .now</p>
       <dl class="now-list">
@@ -184,7 +184,7 @@
 
   <!-- 3 · projects -->
   <section class="win" id="projects" data-title="ls -l ~/projects" aria-labelledby="t-projects">
-    <header class="win-bar"><h2 id="t-projects"><b>kitty</b> ~/projects</h2><span class="win-meta">zsh</span></header>
+    <header class="win-bar"><h2 id="t-projects"><span class="sr-only">projects</span><span aria-hidden="true"><b>kitty</b> ~/projects</span></h2><span class="win-meta">zsh</span></header>
     <div class="win-body">
       <p class="cmd"><span class="p-dir">~</span> <span class="p-arrow">❯</span> ls -l projects</p>
       <p class="ls-total">total 5</p>
@@ -245,7 +245,7 @@
 
   <!-- 4 · writing -->
   <section class="win" id="writing" data-title="tree ~/writing" aria-labelledby="t-writing">
-    <header class="win-bar"><h2 id="t-writing"><b>kitty</b> ~/writing</h2><span class="win-meta">zsh</span></header>
+    <header class="win-bar"><h2 id="t-writing"><span class="sr-only">writing</span><span aria-hidden="true"><b>kitty</b> ~/writing</span></h2><span class="win-meta">zsh</span></header>
     <div class="win-body">
       <p class="cmd"><span class="p-dir">~</span> <span class="p-arrow">❯</span> tree writing</p>
       <p class="tree-root">writing/</p>
@@ -274,7 +274,7 @@
 
   <!-- 5 · friends -->
   <section class="win" id="friends" data-title="~/friends" aria-labelledby="t-friends">
-    <header class="win-bar"><h2 id="t-friends"><b>kitty</b> ~/friends</h2><span class="win-meta">88×31</span></header>
+    <header class="win-bar"><h2 id="t-friends"><span class="sr-only">friends</span><span aria-hidden="true"><b>kitty</b> ~/friends</span></h2><span class="win-meta">88×31</span></header>
     <div class="win-body">
       <p class="cmd"><span class="p-dir">~</span> <span class="p-arrow">❯</span> ls friends</p>
       <!--
@@ -313,7 +313,7 @@
 
   <!-- 6 · man -->
   <section class="win" id="man" data-title="man kestrel" aria-labelledby="t-man">
-    <header class="win-bar"><h2 id="t-man"><b>man</b> kestrel(1)</h2><span class="win-meta">faq</span></header>
+    <header class="win-bar"><h2 id="t-man"><span class="sr-only">faq (man kestrel)</span><span aria-hidden="true"><b>man</b> kestrel(1)</span></h2><span class="win-meta">faq</span></header>
     <div class="win-body man">
       <p class="man-head" aria-hidden="true"><span>KESTREL(1)</span><span class="man-mid">General Commands Manual</span><span>KESTREL(1)</span></p>
 

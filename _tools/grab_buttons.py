@@ -4,7 +4,9 @@ grab 88x31 buttons from friends' sites for the ~/friends window.
 
     python3 _tools/grab_buttons.py              crawl, then pick in your browser
     python3 _tools/grab_buttons.py --auto       skip the picker, take the default picks
-    python3 _tools/grab_buttons.py --dry-run    just list what it found
+    python3 _tools/grab_buttons.py --dry-run    just list what it found (with keys)
+    python3 _tools/grab_buttons.py --auto --drop KEY --keep KEY
+                                                untick / tick specific buttons without the picker
 
 what it does:
   1. visits every site in FRIENDS, plus a few pages on each that look like
@@ -111,6 +113,7 @@ SUBPAGE_HINT = re.compile(r"button|88x?31|link|friend|webring|neighbo|blogroll|c
 SUBPAGE_STRONG = re.compile(r"button|88x?31|friend|link", re.I)
 MAX_SUBPAGES = 6
 SIZES = {(88, 31), (176, 62)}
+IMAGE_EXTS = ("png", "gif", "jpg", "webp", "bmp")
 
 
 def log(*a):
@@ -136,7 +139,10 @@ def fetch(url, limit=2_000_000):
         if not m:
             return None, None
         raw = m.group(3)
-        data = base64.b64decode(raw) if m.group(2) else urllib.parse.unquote_to_bytes(raw)
+        try:
+            data = base64.b64decode(raw) if m.group(2) else urllib.parse.unquote_to_bytes(raw)
+        except ValueError:
+            return None, None
         return url, data
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
     try:
@@ -154,6 +160,13 @@ def fetch(url, limit=2_000_000):
 
 def image_info(data):
     """(ext, (w, h)) from the file's header, or (None, None) for things we don't use"""
+    try:
+        return _image_info(data)
+    except (struct.error, IndexError):
+        return None, None
+
+
+def _image_info(data):
     if not data or len(data) < 24:
         return None, None
     if data[:8] == b"\x89PNG\r\n\x1a\n":
@@ -291,10 +304,11 @@ class Page(HTMLParser):
             yield m.group(1), m.group(2)
 
 
-def crawl(start):
-    """yield candidate dicts from a friend's site"""
+def crawl(start, aliases):
+    """yield candidate dicts from a friend's site. if the site redirects somewhere
+    else, the new address is added to `aliases` so it still counts as them"""
     key = site_key(start)
-    seen, queue, n_sub = set(), [start], 0
+    seen, queue = set(), [start]
     while queue:
         url = queue.pop(0)
         if url in seen:
@@ -304,6 +318,9 @@ def crawl(start):
         if not data:
             log(f"  couldn't load {url}")
             continue
+        if url == start and site_key(final) != key:
+            key = site_key(final)
+            aliases.add(key)
         page = Page(final)
         try:
             page.feed(data.decode("utf-8", "replace"))
@@ -335,7 +352,6 @@ def crawl(start):
                 subs.append((0 if SUBPAGE_STRONG.search(blob) else 1, full))
         for _, full in sorted(set(subs))[:MAX_SUBPAGES]:
             queue.append(full)
-            n_sub += 1
         time.sleep(0.2)
 
 
@@ -354,15 +370,20 @@ def display(key):
 
 def gather(friends, workers=8):
     friend_keys = [site_key(f) for f in friends]
+    alias = {k: k for k in friend_keys}           # any address a friend lives at -> their key
+    url_of = dict(zip(friend_keys, friends))
     me = set(ME)
     cands = []
-    for f in friends:
-        log(f"· {display(site_key(f))}")
-        n = 0
-        for c in crawl(f):
-            c["friend"] = site_key(f)
+    for f, k in zip(friends, friend_keys):
+        log(f"· {display(k)}")
+        n, moved = 0, set()
+        for c in crawl(f, moved):
+            c["friend"] = k
             cands.append(c)
             n += 1
+        for m in moved:
+            alias[m] = k
+            log(f"  (redirects to {display(m)})")
         log(f"  {n} images")
 
     # download every distinct image once, keep the ones that are 88x31
@@ -389,8 +410,9 @@ def gather(friends, workers=8):
         href = c["href"]
         if not href or urllib.parse.urlsplit(href).scheme not in ("http", "https"):
             # an unlinked button on a friend's own site that's hosted there is probably theirs
-            if site_key(c["src"]).split("/")[0] == c["friend"].split("/")[0] and re.search(r"button|88x?31|badge|banner|(?<![a-z])me(?![a-z])", c["src"], re.I):
-                href = next(f for f in friends if site_key(f) == c["friend"])
+            hosted_there = alias.get(site_key(c["src"]).split("/")[0]) == c["friend"] or site_key(c["src"]).split("/")[0] == c["friend"].split("/")[0]
+            if hosted_there and re.search(r"button|88x?31|badge|banner|(?<![a-z])me(?![a-z])", c["src"], re.I):
+                href = url_of[c["friend"]]
             else:
                 continue
         key = site_key(href)
@@ -398,7 +420,8 @@ def gather(friends, workers=8):
             likes_me.add(c["friend"])
             continue
 
-        if key in friend_keys:
+        if key in alias:
+            key = alias[key]
             kind, why = "friend", "your friend"
         else:
             why = not_people_host(href) or not_people_words(c["alt"], c["title"], c["text"], urllib.parse.unquote(c["src"].rsplit("/", 1)[-1]))
@@ -407,11 +430,15 @@ def gather(friends, workers=8):
                 why = "personal site"
             key = key if kind == "person" else "other:" + c["src"]
 
+        # when there are a few versions of someone's button, prefer the one they host
+        # themselves, that links to their front page, or that they hand out as a snippet
         b = buttons.get(key)
-        own_host = site_key(c["src"]).split("/")[0] == key.split("/")[0]
-        score = (2 if own_host else 0) + (1 if c["snippet"] else 0)
+        src_key = site_key(c["src"])
+        own_host = alias.get(src_key, src_key).split("/")[0] == key.split("/")[0]
+        to_root = urllib.parse.urlsplit(href).path.strip("/") in ("", key.partition("/")[2])
+        score = (4 if own_host else 0) + (2 if c["snippet"] else 0) + (1 if to_root else 0)
         if b is None:
-            buttons[key] = b = dict(key=key, kind=kind, why=why, href=href if kind != "friend" else next(f for f in friends if site_key(f) == key),
+            buttons[key] = b = dict(key=key, kind=kind, why=why, href=href if kind != "friend" else url_of[key],
                                     src=c["src"], ext=ext, data=data, score=score, found_on=set(), alt=c["alt"])
         elif score > b["score"]:
             b.update(src=c["src"], ext=ext, data=data, score=score)
@@ -450,7 +477,7 @@ def save(root, buttons, picked_keys, state):
     picked_keys = set(picked_keys)
     outdir = root / "buttons" / "friends"
     outdir.mkdir(parents=True, exist_ok=True)
-    lines, written, missing = [], [], []
+    lines, written, missing, used = [], [], [], set()
     for b in buttons:
         if b["key"] not in picked_keys:
             continue
@@ -458,9 +485,19 @@ def save(root, buttons, picked_keys, state):
             name = slug(b["alt"] or host_of(b["href"]))[:40] + "-" + hashlib.sha1(b["src"].encode()).hexdigest()[:6]
         else:
             name = slug(b["key"])
+        if name in used:
+            name += "-" + hashlib.sha1(b["key"].encode()).hexdigest()[:4]
+        used.add(name)
+        old = sorted(p.name for p in outdir.glob(name + ".*") if p.suffix[1:] in IMAGE_EXTS)
         if b["data"]:
             fn = f"{name}.{b['ext']}"
+            for o in old:  # a friend switched from .png to .gif, say
+                if o != fn:
+                    (outdir / o).unlink()
             (outdir / fn).write_bytes(b["data"])
+            written.append(fn)
+        elif old:
+            fn = old[0]  # couldn't load it today, keep the one we already have
             written.append(fn)
         else:
             fn = f"{name}.png"  # doesn't exist yet, the site draws a text button instead
@@ -471,7 +508,7 @@ def save(root, buttons, picked_keys, state):
 
     # tidy up files this script wrote before that aren't picked anymore
     for fn in state.get("files", []):
-        if fn not in written and (outdir / fn).exists() and re.fullmatch(r"[a-z0-9-]+\.(png|gif|jpg|webp|bmp)", fn):
+        if fn not in written and (outdir / fn).exists() and re.fullmatch(r"[a-z0-9-]+\.(" + "|".join(IMAGE_EXTS) + ")", fn):
             (outdir / fn).unlink()
 
     index = root / "index.html"
@@ -627,6 +664,8 @@ def main():
     ap.add_argument("--auto", action="store_true", help="skip the picker and save the default picks")
     ap.add_argument("--dry-run", action="store_true", help="just list what was found")
     ap.add_argument("--no-browser", action="store_true", help="don't open the picker automatically")
+    ap.add_argument("--keep", nargs="+", default=[], metavar="KEY", help="tick these (keys come from --dry-run)")
+    ap.add_argument("--drop", nargs="+", default=[], metavar="KEY", help="untick these")
     ap.add_argument("--sites", nargs="+", metavar="URL", help="crawl these instead of FRIENDS")
     ap.add_argument("--root", type=Path, default=ROOT, help=argparse.SUPPRESS)
     args = ap.parse_args()
@@ -635,6 +674,12 @@ def main():
     FRIENDS_IN_USE[:] = friends
     buttons, likes_me = gather(friends)
     state = load_state(args.root)
+    known = {b["key"] for b in buttons}
+    for k in args.keep + args.drop:
+        if k not in known:
+            log(f"no button with key {k!r}, check --dry-run")
+    state["picked"] = sorted((set(state.get("picked", [])) - set(args.drop)) | set(args.keep))
+    state["skipped"] = sorted((set(state.get("skipped", [])) - set(args.keep)) | set(args.drop))
 
     counts = {k: sum(b["kind"] == k for b in buttons) for k in ("friend", "person", "other")}
     log(f"\nfound: {counts['friend']} friends, {counts['person']} people, {counts['other']} other")
@@ -644,7 +689,7 @@ def main():
     if args.dry_run:
         for b in buttons:
             mark = "x" if default_pick(b, state) else " "
-            print(f"[{mark}] {b['kind']:<6} {display(b['key']) if b['kind'] != 'other' else b['href']:<40} {b['why']}")
+            print(f"[{mark}] {b['kind']:<6} {b['key']:<44} {b['why']}")
         return
     if args.auto:
         save(args.root, buttons, [b["key"] for b in buttons if default_pick(b, state)], state)

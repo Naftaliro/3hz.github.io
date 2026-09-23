@@ -19,7 +19,7 @@
     $('#flavor')?.setAttribute('aria-label', `catppuccin flavor: ${PRETTY[f]}. click to switch`);
     const base = getComputedStyle(root).getPropertyValue('--base').trim();
     $('meta[name="theme-color"]').setAttribute('content', base);
-    if (save) { try { localStorage.setItem('flavor', f); } catch (e) {} }
+    if (save) { try { localStorage.setItem('flavor', f); } catch {} }
     wall.build();
   }
   const nextFlavor = () => setFlavor(FLAVORS[(FLAVORS.indexOf(flavor) + 1) % FLAVORS.length], true);
@@ -65,23 +65,33 @@
   });
 
   // when scrolling (or on touch), focus whatever sits under a line 40% down the screen
+  const focusByScroll = () => {
+    const y = innerHeight * 0.4;
+    focus(wins.find(w => { const r = w.getBoundingClientRect(); return r.top <= y && r.bottom >= y; }));
+  };
+  // (unless you're tabbing around, then focus follows the keyboard instead)
+  let tabbing = false;
+  addEventListener('keydown', e => { if (e.key === 'Tab') tabbing = true; }, true);
+  addEventListener('pointerdown', () => { tabbing = false; }, true);
   let scrollQueued = false;
   addEventListener('scroll', () => {
     if (scrollQueued) return;
     scrollQueued = true;
     requestAnimationFrame(() => {
       scrollQueued = false;
-      if (hovered) return;
-      const y = innerHeight * 0.4;
-      focus(wins.find(w => { const r = w.getBoundingClientRect(); return r.top <= y && r.bottom >= y; }));
+      if (!hovered && !(tabbing && document.activeElement?.closest('.win'))) focusByScroll();
     });
   }, { passive: true });
-  focus($('#fetch') || wins[0]);
+  // start on whatever the url points at (3hz.dev/#friends), else wherever the page loaded
+  const target = location.hash && wins.find(w => '#' + w.id === location.hash);
+  if (target) focus(target);
+  else if (scrollY > 0) focusByScroll();
+  if (!focused) focus($('#fetch') || wins[0]);
 
   // super+1..6, minus the super
   const wsLinks = $$('.ws a');
   document.addEventListener('keydown', e => {
-    if (e.ctrlKey || e.metaKey || e.altKey || e.target.closest('input, textarea, [contenteditable]')) return;
+    if (e.repeat || e.ctrlKey || e.metaKey || e.altKey || e.target.closest('input, textarea, select, [contenteditable]')) return;
     const n = parseInt(e.key, 10);
     if (n >= 1 && n <= wsLinks.length) {
       const win = document.getElementById(wsLinks[n - 1].dataset.ws);
@@ -131,7 +141,7 @@
     if (!rows.length) return;
     const USER = 'Naftaliro';
     let gh = null;
-    try { const c = JSON.parse(localStorage.getItem('gh')); if (c && Date.now() - c.t < 36e5) gh = c; } catch (e) {}
+    try { const c = JSON.parse(localStorage.getItem('gh')); if (c && Date.now() - c.t < 36e5) gh = c; } catch {}
     if (!gh) {
       try {
         const get = u => fetch('https://api.github.com/' + u).then(r => (r.ok ? r.json() : Promise.reject(r.status)));
@@ -142,8 +152,8 @@
           const rel = await get(`repos/${USER}/${el.dataset.releases}/releases?per_page=100`).catch(() => null);
           if (rel) gh.releases[el.dataset.releases] = rel.filter(x => !x.draft).length;
         }
-        try { localStorage.setItem('gh', JSON.stringify(gh)); } catch (e) {}
-      } catch (e) { return; }
+        try { localStorage.setItem('gh', JSON.stringify(gh)); } catch {}
+      } catch { return; }
     }
     const lsDate = iso => {
       const d = new Date(iso), mon = d.toLocaleString('en-US', { month: 'short' });
@@ -167,7 +177,7 @@
       await navigator.clipboard.writeText(src.textContent);
       btn.textContent = 'copied';
       btn.classList.add('done');
-    } catch (e) {
+    } catch {
       getSelection().selectAllChildren(src);
       btn.textContent = 'ctrl+c';
     }
@@ -184,7 +194,8 @@
     const ctx = canvas.getContext('2d');
     const bg = document.createElement('canvas');
     const bgx = bg.getContext('2d');
-    let W = 0, H = 0, P = {}, stars = [], hover = null, timer = 0;
+    const P = {};
+    let W = 0, H = 0, stars = [], hover = null, timer = 0;
 
     const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map(v => (v + 0.5) / 16);
     const HOVER = [
