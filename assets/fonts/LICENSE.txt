@@ -1,4 +1,4 @@
-Iosevka (subset) — SIL Open Font License 1.1
+Iosevka (subset), SIL Open Font License 1.1
 
 Copyright (c) 2015-2023, Renzhi Li (aka. Belleve Invis, belleve@typeof.net)
 
@@ -113,7 +113,7 @@ not met.
 
 ================================================================
 
-Silkscreen — SIL Open Font License 1.1
+Silkscreen, SIL Open Font License 1.1
 
 Copyright 2001 The Silkscreen Project Authors (https://github.com/googlefonts/silkscreen) Silkscreen-Bold.ttf: Copyright 2001 The Silkscreen Project Authors (https://github.com/googlefonts/silkscreen)
 
