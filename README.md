@@ -44,10 +44,10 @@ the images in `buttons/friends/` and rewrites the list in `index.html`.
 
 stuff that goes out of date when life changes. `grep -n 2026 index.html` finds most dates.
 
-- **job:** the `work` line in fetch, line 3 of about.md, and DESCRIPTION + STATUS in the man page
-- **~/.now:** the four lines, plus the month in its title bar (`sep 2026`)
+- **job:** the `work` line in fetch, line 3 of about.md, and DESCRIPTION + STATUS in the man page. no employer names on this site
+- **~/.now:** the lines in it, plus the month in its title bar (`nov 2026`)
 - **man page:** the date in its footer line
-- **projects:** the dates and the pz-server-manager release count update themselves from
+- **projects:** the dates and the knox launcher (pz-server-manager repo) release count update themselves from
   github (cached an hour per visitor). the descriptions and the list itself don't
 
 ## common edits

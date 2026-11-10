@@ -384,6 +384,14 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
 .ls-tag { color: var(--dim); white-space: nowrap; }
 .ls-tag.star { color: var(--yellow); }
 .ls-desc { grid-column: 2 / -1; color: var(--subtext0); font-size: 14.5px; margin-top: 1px; }
+/* a second link under a row (the row itself is already one link) */
+/* the offset is in the row's ch so it lines up with ls-desc; only the text inside is smaller */
+.ls-more { margin: -3px 0 6px calc(10ch + 1.5ch); color: var(--dim); }
+.ls-more > span { font-size: 14.5px; }
+.ls.has-dates .ls-more { margin-left: calc(18ch + 3ch); }
+/* .ls a styles whole rows, so put the inline link back to normal */
+.ls-more a { display: inline; padding: 0; margin: 0; border-radius: 0; color: var(--blue); }
+.ls-more a:hover, .ls-more a:focus-visible { background: none; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ── tree ─────────────────────────────────────────────── */
 
@@ -568,6 +576,7 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
   .ls-tag { grid-column: 2; grid-row: 1; }
   .ls-date { grid-column: 2; grid-row: 2; text-align: right; }
   .ls-desc, .ls.has-dates .ls-desc { grid-column: 1 / -1; }
+  .ls-more, .ls.has-dates .ls-more { margin-left: 0; }
   .man h3 + p, .man h3 + dl, .man-opts dd { margin-left: 3ch; }
   .man-mid { display: none; }
   .linkme-row { flex-wrap: wrap; }
