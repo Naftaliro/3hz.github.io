@@ -248,6 +248,8 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
 .fetch-head { font-size: inherit; font-weight: 700; }
 .fetch-head .u, .fetch-head .h { color: var(--mauve); }
 .fetch-head .at { color: var(--text); }
+/* one plain line so a stranger knows who this is before reading the fetch rows */
+.fetch-intro { margin: 4px 0 2px; color: var(--subtext1); max-width: 62ch; }
 .fetch-rule { color: var(--overlay0); line-height: 1.2; overflow: hidden; white-space: nowrap; }
 .fetch-colors { display: flex; margin-top: 12px; }
 .fetch-colors i { display: block; width: 30px; height: 18px; background: var(--c); }
@@ -567,8 +569,15 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
   .mod-flavor #flavor-name { display: none; }
   .bar-logo span { display: none; }
   .win-body { padding: 12px 14px 16px; }
-  .fetch { flex-direction: column; gap: 14px; }
-  .fetch-logo img { width: 120px; height: 120px; }
+  /* picture next to the name so the intro, shipped and contact rows fit on the first screen */
+  .fetch { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 0 14px; align-items: center; }
+  .fetch-info { display: contents; }
+  .fetch-logo { grid-column: 1; grid-row: 1; padding-top: 0; }
+  .fetch-logo img { width: 64px; height: 64px; }
+  .fetch-head { grid-column: 2; grid-row: 1; }
+  .fetch-intro, .fetch-rule, .fetch-info dl, .fetch-colors { grid-column: 1 / -1; }
+  .fetch-intro { margin-top: 12px; }
+  .fetch-rule { margin: 6px 0 4px; }
   .fetch-colors i { width: 24px; }
   .ls a, .ls.has-dates a { grid-template-columns: minmax(0, 1fr) auto; }
   .ls-perm { display: none; }
