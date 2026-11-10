@@ -562,8 +562,11 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
   .bar { width: calc(100% - 16px); margin: 8px auto 0; top: 8px; gap: 6px; padding: 0 4px; }
   .desk { padding: var(--gap) 8px; }
   .win, .bar { -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .ws a { padding: 0 8px; }
-  .ws a span { display: none; }
+  /* the nav gets its own row: labels stay, and each tab is a 44px tap target */
+  html { scroll-padding-top: 116px; }
+  .bar { flex-wrap: wrap; height: auto; padding: 4px; row-gap: 2px; }
+  .ws { order: 3; flex-basis: 100%; gap: 2px; }
+  .ws a { flex: 1; justify-content: center; height: 44px; padding: 0 6px; gap: 5px; }
   .mod-cpu { display: none; }
   .mod { padding: 0 9px; }
   .mod-flavor #flavor-name { display: none; }
@@ -595,7 +598,7 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
 }
 
 @media (max-width: 380px) {
-  .ws a { padding: 0 6px; }
+  .ws a { padding: 0 3px; }
   .mod-clock { display: none; }
   .nw { white-space: normal; }
 }
