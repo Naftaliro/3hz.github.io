@@ -51,6 +51,8 @@
 /* ── knobs ────────────────────────────────────────────── */
 
 :root {
+  /* muted terminal chrome (ls perms, line numbers, ~). overlay2 passes AA on the dark flavors; latte needs subtext0 */
+  --chrome: var(--overlay2);
   --gap: 12px;           /* gaps_in, basically */
   --radius: 10px;
   --border: 2px;
@@ -63,7 +65,7 @@
   --sel: var(--surface0);        /* selected / hovered rows */
   --on-accent: var(--crust);     /* text sitting on an accent color */
 }
-:root[data-flavor="latte"] { --pill: var(--base); --sel: var(--crust); --on-accent: var(--base); }
+:root[data-flavor="latte"] { --pill: var(--base); --sel: var(--crust); --on-accent: var(--base); --chrome: var(--subtext0); }
 /* older browsers without color-mix() get solid windows instead of see-through ones */
 @supports not (color: color-mix(in srgb, red, blue)) {
   :root { --win-bg: var(--base); --bar-bg: var(--mantle); --pill: var(--surface0); }
@@ -289,7 +291,7 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
 .rofi-list:hover li:first-child a:not(:hover) .r-desc { color: var(--dim); }
 .rofi-list:hover li:first-child a:not(:hover) .ic { color: var(--overlay2); }
 .rofi-list a[aria-current] .r-name { color: var(--dim); }
-.rofi-foot { margin-top: auto; font-size: 12.5px; color: var(--overlay0); text-align: right; }
+.rofi-foot { margin-top: auto; font-size: 12.5px; color: var(--chrome); text-align: right; }
 
 /* ── nvim ─────────────────────────────────────────────── */
 
@@ -297,7 +299,7 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
 .nv-buf { flex: 1; padding: 12px 18px 8px 0; }
 .nv-line { display: grid; grid-template-columns: 4.5ch 1fr; column-gap: 1.5ch; }
 .nv-line + .nv-line { margin-top: 10px; }
-.ln { text-align: right; color: var(--surface2); user-select: none; }
+.ln { text-align: right; color: var(--chrome); user-select: none; }
 .nv-line:first-child { background: color-mix(in srgb, var(--sel) 45%, transparent); }
 .nv-line:first-child .ln { color: var(--lavender); }
 .nv-line p { color: var(--text); }
@@ -305,7 +307,7 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
 .nv-line .md-h2 { color: var(--peach); }
 .md-list li { padding-left: 2ch; text-indent: -2ch; }
 .md-list li::before { content: "- "; color: var(--teal); }
-.nv-tilde { margin-top: 10px; padding-left: 2ch; color: var(--surface1); line-height: 1.5; user-select: none; }
+.nv-tilde { margin-top: 10px; padding-left: 2ch; color: var(--chrome); line-height: 1.5; user-select: none; }
 .nv-status {
   display: flex; align-items: stretch;
   font-size: 12.5px;
@@ -373,7 +375,7 @@ kbd { font: inherit; font-size: .9em; padding: 0 5px; border: 1px solid var(--su
   border-radius: 7px;
 }
 .ls a:hover, .ls a:focus-visible { background: color-mix(in srgb, var(--sel) 70%, transparent); color: var(--text); }
-.ls-perm { color: var(--overlay0); }
+.ls-perm { color: var(--chrome); }
 /* the date column only shows up once github has answered (see main.js) */
 .ls-date { display: none; color: var(--dim); white-space: pre; }
 .ls.has-dates a { grid-template-columns: 10ch 8ch minmax(0, 21ch) minmax(0, 1fr) auto; }
