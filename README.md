@@ -84,7 +84,7 @@ or just double-click `index.html`. the 404 page needs the server.
 
 ## keys
 
-`1`-`6` jump between workspaces, `t` cycles the catppuccin flavor.
+`1`-`5` jump between workspaces, `t` cycles the catppuccin flavor. the 88x31 window is left out of the nav on purpose until it has friends' buttons in it
 
 ## credits
 
