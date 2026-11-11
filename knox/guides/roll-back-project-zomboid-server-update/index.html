@@ -71,6 +71,7 @@
     <nav class="nav" aria-label="main">
       <a href="/knox/#host">Host</a>
       <a href="/knox/#join">Join</a>
+      <a href="/knox/#modded">Mods</a>
       <a href="/knox/#rollback">Rollback</a>
       <a href="/knox/guides/" aria-current="page">Guides</a>
       <a href="/knox/#faq">FAQ</a>
@@ -117,7 +118,7 @@
       <svg aria-hidden="true"><use href="/knox/img/icons.svg#alert"/></svg>
       <div>
         <p><b>don't keep restarting the server on 42.22 if you plan to go back.</b></p>
-        <p>a world that's been opened on a newer version might not load on an older one. the safe bet is a backup made before the update.</p>
+        <p>the first time 42.22 opens a world, it upgrades the save (the world version goes from 249 to 251), and 42.21 can't load it after that. so going back needs a backup made before the update.</p>
       </div>
     </div>
 
@@ -161,20 +162,20 @@
     <h2 id="forward">7. Going forward again</h2>
     <p>once the mods you need are updated, move everyone back together: players set Betas back to <b>none</b>, you switch the server back with the same SteamCMD command without <code>-beta 42.21</code>, then back up and start it. the fall-back branch is temporary, so don't plan to stay on it forever.</p>
 
-    <!-- PENDING-FEATURE: rollback -->
     <h2 id="knox">The easy way: rollback in Knox Launcher 1.6</h2>
-    <p>everything above, as a menu. knox launcher 1.6 adds:</p>
+    <p>everything above, as a button on the server's overview. knox launcher 1.6 adds:</p>
     <ul>
-      <li><b>full backups.</b> each backup has the world plus the server's settings, mod list and the game version it was running.</li>
-      <li><b>a rollback menu with plain options:</b> "before the last game update", "1 hour ago", "yesterday", "last week".</li>
-      <li><b>a version check.</b> if the backup is from a different game version, it can switch the server to the matching Steam branch (like the 42.21 fall-back). if it can't, it stops and explains why, instead of loading a world that won't work.</li>
-      <li><b>player guidance.</b> when a friend's game is on a different version, the app says exactly which branch to pick in Steam. (it can't switch their game for them.)</li>
-      <li><b>update guard.</b> holds game updates for your server until you approve them, and backs up first, so the next big update doesn't catch you at 2am.</li>
+      <li><b>full backups.</b> each backup has the world plus the server's settings, players, mod list and the game version it was running. they happen every start, every 30 minutes while people play, and before every game or mod update.</li>
+      <li><b>the backup that counts.</b> when the game version changes, the app backs up the world before the new version opens it, even if backups are off, so there's always a copy the old version can load.</li>
+      <li><b>plain options:</b> "before the last game update", "about 1 hour ago", "yesterday", "last week", or any backup from the list.</li>
+      <li><b>a check first.</b> game version, mods and settings. if the backup is from an older game version, it switches the server to the matching Steam branch (like the 42.21 fall-back). it won't put a newer world on an older game, and says why.</li>
+      <li><b>undo.</b> the world as it is now gets backed up first.</li>
+      <li><b>player guidance.</b> when a friend's game is on a different version, the app says exactly which branch to pick in Steam, and the invite message includes it. (it can't switch their game for them.)</li>
+      <li><b>update guard.</b> holds game updates for your server until you hit back up &amp; update, so the next big update doesn't catch you at 2am.</li>
     </ul>
     <figure class="shot with-cap">
-      <img src="/knox/img/screens/rollback.png" width="1920" height="1200" loading="lazy" decoding="async" alt="Knox Launcher's rollback menu with the options before the last game update, 1 hour ago, yesterday and last week, each showing its game version.">
+      <img src="/knox/img/screens/rollback.png" width="1920" height="1200" loading="lazy" decoding="async" alt="Knox Launcher's roll back dialog checking a backup before restoring it: the game version is older, with an option to switch the server to the 42.21 fall-back too, and the mods and settings are the same as now.">
     </figure>
-    <!-- /PENDING-FEATURE: rollback -->
 
     <h2 id="next-time">Next time</h2>
     <ul>

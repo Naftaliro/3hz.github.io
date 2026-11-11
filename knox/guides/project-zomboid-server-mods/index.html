@@ -71,6 +71,7 @@
     <nav class="nav" aria-label="main">
       <a href="/knox/#host">Host</a>
       <a href="/knox/#join">Join</a>
+      <a href="/knox/#modded">Mods</a>
       <a href="/knox/#rollback">Rollback</a>
       <a href="/knox/guides/" aria-current="page">Guides</a>
       <a href="/knox/#faq">FAQ</a>
@@ -122,11 +123,20 @@ Map=SomeMapMod;Muldraugh, KY</code></pre>
     <p>mods load in the order of the <code>Mods=</code> line. a mod that needs another one has to come after it. Build 42 mods can say this in their <code>mod.info</code> with <code>require=</code>, <code>loadModAfter=</code> and <code>loadModBefore=</code>.</p>
     <p>in knox launcher, drag mods to reorder, or hit <b>Sort automatically</b> and it orders them from what each mod says it needs. it also warns about mods that clash, mods made for the other build, and requirements you don't have.</p>
 
+    <h2 id="presets">The quick way: a ready-made modded server</h2>
+    <p>new to modding? when you make a new server in knox launcher, the mods step has three tested setups. the mods, their load order and the settings they need are done for you, and each one is test-started on a real server (the card says which game version it was checked on):</p>
+    <ul>
+      <li><b>Vanilla+</b> (11 mods, 8 MB): the normal game with the fiddly bits smoothed out. the safe first modded server.</li>
+      <li><b>Road Trip</b> (15 mods, 709 MB): vans and campers you can walk inside, guns and bandits.</li>
+      <li><b>Homestead</b> (10 mods, 17 MB): base building, farming and animals.</li>
+    </ul>
+    <p>mod backups get turned on for you, and friends join with one server pack, fix mods included.</p>
+
     <h2 id="knox">Adding mods with Knox Launcher</h2>
     <ol>
       <li>open your server → <b>Mods</b>. the Steam Workshop opens right inside the app.</li>
       <li>hit <b>+ add</b> on any mod. required mods get added too, and the download starts straight away.</li>
-      <li>got a Workshop collection? paste its link under <b>Install or check a modpack</b> to add everything in it. (with your own free Steam Web API key in app settings, it also finds the mods each mod needs, even ones the collection forgot.)</li>
+      <li>got a Workshop collection? paste its link under <b>Install or check a modpack</b> to add everything in it. it finds the mods each mod needs (even ones the collection forgot), leaves out mods made for Build 41 and sorts the load order once they've downloaded, then tells you what it did.</li>
       <li>map mods go into the map list for you. check the order looks right.</li>
       <li>restart the server. the overview tells you if anything's missing before it starts.</li>
     </ol>
@@ -151,7 +161,7 @@ Map=SomeMapMod;Muldraugh, KY</code></pre>
 
     <h2 id="trouble">Common mod problems</h2>
     <ul>
-      <li><b>server stops while loading mods:</b> look at the end of <code>server-console.txt</code>. it usually names the mod. most often it's a missing required mod or a wrong mod id.</li>
+      <li><b>server stops while loading mods:</b> look at the end of <code>server-console.txt</code>. it usually names the mod. most often it's a missing required mod, a wrong mod id, or a mod that doesn't work with your game version. knox launcher 1.6 reads the log for you and says which mod stopped the world loading.</li>
       <li><b>a mod's features don't show up:</b> its mod id isn't on the <code>Mods=</code> line (only the Workshop id is), or it loads before something it needs.</li>
       <li><b>a map mod doesn't appear:</b> it's missing from <code>Map=</code>, or it comes after <code>Muldraugh, KY</code>.</li>
       <li><b>mod settings keep resetting:</b> older versions of knox launcher reset mod settings on start. 1.6 doesn't.</li>

@@ -298,4 +298,5 @@ td { color: var(--text-2); }
 .err { min-height: 60vh; display: grid; place-items: center; text-align: center; padding: 60px 0; }
 .err .code { font-family: var(--mono); color: var(--accent); font-size: 1rem; }
 .mt { margin-top: 22px; }
+.card .size { color: var(--text-3); font-size: .9rem; margin: .6em 0 0; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }

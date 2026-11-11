@@ -84,6 +84,7 @@
     <nav class="nav" aria-label="main">
       <a href="/knox/#host">Host</a>
       <a href="/knox/#join">Join</a>
+      <a href="/knox/#modded">Mods</a>
       <a href="/knox/#rollback">Rollback</a>
       <a href="/knox/guides/">Guides</a>
       <a href="/knox/#faq">FAQ</a>
@@ -138,7 +139,7 @@
         <p class="lede">pick a name, a difficulty and some mods, hit start. knox launcher does the parts that usually take an evening of forum threads.</p>
         <ol class="steps">
           <li><b>get the game server</b><p>the setup screen downloads the Project Zomboid dedicated server for you (about 7 GB, once), or uses the one already in your Steam library.</p></li>
-          <li><b>make a server in 3 steps</b><p>name, difficulty, mods. the difficulties are the game's own Build 42 presets: Apocalypse, Outbreak, Extinction and Rising.</p></li>
+          <li><b>make a server in 3 steps</b><p>name, difficulty, mods. the difficulties are the game's own Build 42 presets: Apocalypse, Outbreak, Extinction and Rising. for mods, pick one of the <a href="/knox/#modded">ready-made modded servers</a> or choose your own.</p></li>
           <li><b>hit start</b><p>it checks ports, memory and missing mods first and tells you how to fix anything. the first start with mods can take a few minutes.</p></li>
           <li><b>invite your friends</b><p>when it says <b>online</b>, copy the invite message and paste it in your group chat. or send a server pack so they get your exact mods.</p></li>
         </ol>
@@ -179,13 +180,42 @@
     </div>
   </section>
 
-  <!-- PENDING-FEATURE: rollback -->
-  <section class="sec" id="rollback" aria-labelledby="t-rollback">
+  <!-- ── modded ── -->
+  <section class="sec" id="modded" aria-labelledby="t-modded">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Mods · new in 1.6</span>
+        <h2 id="t-modded">A modded server without the homework</h2>
+        <p class="lede">pick a ready-made modded server when you make a new one. the mods, their load order and the settings they need are done for you, and friends join with one server pack.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#check"/></svg>Vanilla+</h3>
+          <p>the normal game with the fiddly bits smoothed out: better sorting, read books marked, a small health panel, reload all mags and more. the safe first modded server.</p>
+          <p class="size">11 mods · 8 MB</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#package"/></svg>Road Trip</h3>
+          <p>find a van or a camper, fix it up and hit the road. RVs you can walk inside, guns, and bandits to watch out for.</p>
+          <p class="size">15 mods · 709 MB</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#users"/></svg>Homestead</h3>
+          <p>settle down together: fix up a base, farm, and keep animals.</p>
+          <p class="size">10 mods · 17 MB</p>
+        </article>
+      </div>
+      <p class="mt">each one is test-started on a real server before it ships, and the app shows which game version it was checked on. mod backups get turned on, so an author's bad update can't take your server down with it. rather pick your own? paste any Workshop collection and the app adds the mods they need, leaves out Build 41 mods and sorts the load order. <a href="/knox/guides/project-zomboid-server-mods/">guide: mods on a Project Zomboid server</a></p>
+    </div>
+  </section>
+
+  <!-- ── rollback ── -->
+  <section class="sec sec-alt" id="rollback" aria-labelledby="t-rollback">
     <div class="wrap">
       <div class="sec-head">
         <span class="kicker">Rollback · new in 1.6</span>
         <h2 id="t-rollback">An update broke your server? Roll it back.</h2>
-        <p class="lede">Build 42.22.2 went to the public branch on november 9 and a lot of servers and mods broke overnight. going back used to mean digging through save folders and SteamCMD commands. in 1.6 it's a menu.</p>
+        <p class="lede">Build 42.22.2 went to the public branch on november 9. if your server or your mods didn't take it well, going back used to mean digging through save folders and SteamCMD commands. in 1.6 it's a button.</p>
       </div>
       <div class="split">
         <div>
@@ -194,7 +224,9 @@
             <li><b>plain options.</b> "before the last game update", "1 hour ago", "yesterday", "last week". no timestamps to decode.</li>
             <li><b>it checks the game version.</b> if the backup is from an older version, it can switch the server back to the matching Steam branch (like the 42.21 fall-back The Indie Stone kept up). if it can't, it stops and tells you why instead of loading a world that won't work.</li>
             <li><b>update guard.</b> holds game updates for your server until you say yes, and makes a backup first. no more waking up to a server that updated itself into a broken state.</li>
+            <li><b>undo.</b> the world as it is now gets backed up before every rollback, so you can always go back to where you were.</li>
           </ul>
+          <p class="mt">one thing worth knowing: once a newer game version opens a world, the game upgrades the save and an older version can't load it anymore. so the backup from <i>before</i> the update is the one that counts, and knox launcher makes it automatically before the new version touches your world.</p>
           <div class="callout warn mt">
             <svg aria-hidden="true"><use href="/knox/img/icons.svg#alert"/></svg>
             <div>
@@ -217,10 +249,9 @@
       </div>
     </div>
   </section>
-  <!-- /PENDING-FEATURE: rollback -->
 
   <!-- ── features ── -->
-  <section class="sec sec-alt" id="features" aria-labelledby="t-features">
+  <section class="sec" id="features" aria-labelledby="t-features">
     <div class="wrap">
       <div class="sec-head">
         <span class="kicker">Features</span>
@@ -234,7 +265,7 @@
         </article>
         <article class="card">
           <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#package"/></svg>The Steam Workshop, inside the app</h3>
-          <p>hit <b>+ add</b> on any mod. required mods come along, whole collections work, and the app reads the real mod ids out of the files instead of guessing.</p>
+          <p>hit <b>+ add</b> on any mod. required mods come along, and the app reads the real mod ids out of the files instead of guessing. paste a whole collection and it adds what the mods need, leaves out Build 41 mods and sorts the load order.</p>
         </article>
         <article class="card">
           <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#refresh"/></svg>Load order, sorted</h3>
@@ -249,12 +280,12 @@
           <p>keeps a copy of every Workshop mod your servers use. if a mod gets pulled from the Workshop or an update breaks it, switch to your saved copy from the Mods tab.</p>
         </article>
         <article class="card">
-          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#history"/></svg>World backups</h3>
-          <p>a backup every time the server starts, one-click restore, and the current world is saved first so a restore can be undone.</p>
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#history"/></svg>Backups that have everything<span class="new">1.6</span></h3>
+          <p>the world plus its settings, players, mod list and game version, every start and every 30 minutes while people play. backups only store what changed, and older ones thin out by themselves.</p>
         </article>
         <article class="card">
           <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#check"/></svg>Checks before it starts</h3>
-          <p>ports, memory and missing mods get checked before you start, with a fix button where it can. it knows when the server is actually ready, not just running.</p>
+          <p>ports, memory and missing mods get checked before you start, with a fix button where it can. it knows when the server is actually ready, and if a mod stops the world loading, it tells you which mod and why.</p>
         </article>
         <article class="card">
           <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#globe"/></svg>Friends can actually connect</h3>
@@ -276,12 +307,20 @@
           <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#terminal"/></svg>Console and advanced mode</h3>
           <p>a console with server commands over RCON, raw file editing, mod ids, ports, launch modes and Build 41. hidden until you turn advanced mode on.</p>
         </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#eye-off"/></svg>Streamer friendly<span class="new">1.6</span></h3>
+          <p>hide your public IP and admin password on screen with one click, so you can stream or share a screenshot without giving them away.</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#zap"/></svg>The little things<span class="new">1.6</span></h3>
+          <p>every server gets its own folder so two can run side by side, downloads show real progress, the back and forward buttons on your mouse work, and only one copy of the app runs at a time.</p>
+        </article>
       </div>
     </div>
   </section>
 
   <!-- ── trust ── -->
-  <section class="sec" id="trust" aria-labelledby="t-trust">
+  <section class="sec sec-alt" id="trust" aria-labelledby="t-trust">
     <div class="wrap">
       <div class="sec-head">
         <span class="kicker">Is it safe?</span>
@@ -291,7 +330,7 @@
       <div class="trust">
         <div class="card">
           <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#shield"/></svg>Signed by a real person</h3>
-          <p>releases are signed with Microsoft Artifact Signing. Windows shows the publisher as <b>Mitchell Berg</b>, the developer, after Microsoft checked his ID.</p>
+          <p>releases are signed with Microsoft Artifact Signing. Windows shows the publisher as <b>Mitchell Berg</b>, the developer, whose identity Microsoft verified.</p>
         </div>
         <div class="card">
           <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#code"/></svg>Built from the public code</h3>
@@ -317,7 +356,7 @@
   </section>
 
   <!-- ── faq ── -->
-  <section class="sec sec-alt" id="faq" aria-labelledby="t-faq">
+  <section class="sec" id="faq" aria-labelledby="t-faq">
     <div class="wrap">
       <div class="sec-head">
         <span class="kicker">FAQ</span>
@@ -358,18 +397,16 @@
         </details>
         <details>
           <summary><h3>How do I add mods to a Project Zomboid server?</h3></summary>
-          <div class="a"><p>open the server's Mods tab, browse the Steam Workshop right in the app and hit <b>+ add</b>. it downloads the mod, finds the real mod ids, adds required mods and map mods, and sorts the load order. friends' games download the same Workshop mods when they join. more in the <a href="/knox/guides/project-zomboid-server-mods/">server mods guide</a>.</p></div>
+          <div class="a"><p>the quickest way: when you make a new server, pick one of the ready-made modded servers (Vanilla+, Road Trip or Homestead) and everything is set up for you. to choose your own, open the server's Mods tab, browse the Steam Workshop right in the app and hit <b>+ add</b>. it downloads the mod, finds the real mod ids, adds required mods and map mods, and sorts the load order. friends' games download the same Workshop mods when they join. more in the <a href="/knox/guides/project-zomboid-server-mods/">server mods guide</a>.</p></div>
         </details>
         <details>
           <summary><h3>A mod got removed from the Workshop, or an update broke it. Now what?</h3></summary>
           <div class="a"><p>if mod backups were on (app settings → Mod backups), the Mods tab can switch the server to your saved copy. friends get that copy from your server pack. the Workshop itself only serves the latest version, so turn mod backups on before you need them.</p></div>
         </details>
-        <!-- PENDING-FEATURE: rollback -->
         <details>
           <summary><h3>Can I roll back my server after a game update?</h3></summary>
-          <div class="a"><p>yes, in 1.6. the rollback menu takes the world, settings and mod list back to "before the last game update" (or 1 hour ago, yesterday, last week) and switches the server to the matching Steam branch when one exists. players switch their own game branch in Steam, and the app tells them which one. the <a href="/knox/guides/roll-back-project-zomboid-server-update/">rollback guide</a> also shows how to do it by hand.</p></div>
+          <div class="a"><p>yes, in 1.6. the roll back button takes the world, settings and mod list back to "before the last game update" (or about an hour ago, yesterday, last week) and switches the server to the matching Steam branch when Steam still has it. players switch their own game branch in Steam, and the app tells them which one. it needs a backup from before the update, because the game upgrades a world the first time a newer version opens it; knox launcher makes that backup automatically. the <a href="/knox/guides/roll-back-project-zomboid-server-update/">rollback guide</a> also shows how to do it by hand.</p></div>
         </details>
-        <!-- /PENDING-FEATURE: rollback -->
         <details>
           <summary><h3>Can I host and play on the same PC?</h3></summary>
           <div class="a"><p>yes, lots of people do. leave enough memory for your own game: the server's memory slider shows how much your pc has. join your own server with the "same Wi-Fi" address from the overview page.</p></div>
@@ -399,7 +436,7 @@
   </section>
 
   <!-- ── final cta ── -->
-  <section class="sec final" aria-labelledby="t-final">
+  <section class="sec sec-alt final" aria-labelledby="t-final">
     <div class="wrap narrow">
       <img src="/knox/img/icon.svg" alt="" width="84" height="84">
       <h2 id="t-final">Get your server up tonight</h2>
