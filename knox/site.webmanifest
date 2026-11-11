@@ -1,0 +1,22 @@
+{
+  "name": "Knox Launcher",
+  "short_name": "Knox",
+  "description": "Free Project Zomboid server manager for Windows.",
+  "start_url": "/knox/",
+  "scope": "/knox/",
+  "display": "browser",
+  "background_color": "#1e1e2e",
+  "theme_color": "#1e1e2e",
+  "icons": [
+    {
+      "src": "/knox/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/knox/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

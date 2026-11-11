@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Knox Launcher · free Project Zomboid server manager for Windows</title>
+  <meta name="description" content="Host a Project Zomboid dedicated server on Windows without touching ini files, or join a friend's server with exactly their mods and fixes. Free, open source, Build 42 ready.">
+  <link rel="canonical" href="https://3hz.dev/knox/">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#1e1e2e">
+  <meta name="author" content="Naftaliro">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Knox Launcher">
+  <meta property="og:title" content="Knox Launcher · free Project Zomboid server manager for Windows">
+  <meta property="og:description" content="Host a Project Zomboid server without ini files or command lines, or join a friend's with exactly their mods and fixes. Free and open source.">
+  <meta property="og:url" content="https://3hz.dev/knox/">
+  <meta property="og:image" content="https://3hz.dev/knox/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Knox Launcher logo next to the words: Project Zomboid servers without the ini files. Host a server or join a friend's with exactly their mods.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Knox Launcher · free Project Zomboid server manager for Windows">
+  <meta name="twitter:description" content="Host a Project Zomboid server without ini files or command lines, or join a friend's with exactly their mods and fixes. Free and open source.">
+  <meta name="twitter:image" content="https://3hz.dev/knox/img/og.png">
+  <meta name="twitter:image:alt" content="Knox Launcher logo next to the words: Project Zomboid servers without the ini files. Host a server or join a friend's with exactly their mods.">
+
+  <link rel="icon" href="/knox/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/knox/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/knox/apple-touch-icon.png">
+  <link rel="manifest" href="/knox/site.webmanifest">
+  <link rel="preload" href="/knox/img/screens/overview.png" as="image" fetchpriority="high">
+  <link rel="stylesheet" href="/knox/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://3hz.dev/knox/#page",
+        "name": "Knox Launcher · free Project Zomboid server manager for Windows",
+        "url": "https://3hz.dev/knox/",
+        "inLanguage": "en",
+        "isPartOf": { "@type": "WebSite", "name": "3hz.dev", "url": "https://3hz.dev/" },
+        "mainEntity": { "@id": "https://3hz.dev/knox/#app" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://3hz.dev/knox/#app",
+        "name": "Knox Launcher",
+        "alternateName": ["PZ Server Manager", "pz-server-manager"],
+        "description": "A free, open-source Windows app for Project Zomboid: host a dedicated server without touching ini files or command lines, or join a friend's server with exactly their mods and fixes using a small server pack (.pzpack) file.",
+        "url": "https://3hz.dev/knox/",
+        "applicationCategory": "GameApplication",
+        "applicationSubCategory": "Game server manager",
+        "operatingSystem": "Windows 10, Windows 11 (64-bit)",
+        "softwareVersion": "1.6.0",
+        "downloadUrl": "https://github.com/Naftaliro/pz-server-manager/releases/latest",
+        "installUrl": "https://github.com/Naftaliro/pz-server-manager/releases/latest",
+        "license": "https://opensource.org/licenses/MIT",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "image": "https://3hz.dev/knox/img/og.png",
+        "sameAs": ["https://github.com/Naftaliro/pz-server-manager"],
+        "author": { "@type": "Person", "name": "Mitchell Berg", "alternateName": "Naftaliro", "url": "https://3hz.dev" },
+        "publisher": { "@type": "Person", "name": "Mitchell Berg", "alternateName": "Naftaliro", "url": "https://3hz.dev" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+<a class="skip" href="#main">skip to content</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/knox/" aria-label="Knox Launcher home">
+      <img src="/knox/img/icon.svg" alt="" width="34" height="34">
+      <span>Knox Launcher<small>Project Zomboid server manager</small></span>
+    </a>
+    <nav class="nav" aria-label="main">
+      <a href="/knox/#host">Host</a>
+      <a href="/knox/#join">Join</a>
+      <a href="/knox/#rollback">Rollback</a>
+      <a href="/knox/guides/">Guides</a>
+      <a href="/knox/#faq">FAQ</a>
+    </nav>
+    <div class="top-actions">
+      <a class="btn btn-primary btn-sm" href="https://github.com/Naftaliro/pz-server-manager/releases/latest"><svg class="i" aria-hidden="true"><use href="/knox/img/icons.svg#download"/></svg>Download</a>
+      <a class="icon-btn" href="https://github.com/Naftaliro/pz-server-manager" aria-label="Knox Launcher on GitHub"><svg aria-hidden="true"><use href="/knox/img/icons.svg#github"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ── hero ── -->
+  <section class="hero" aria-labelledby="t-hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>v1.6 · Build 42 ready · free</p>
+        <h1 id="t-hero">Knox Launcher <span class="h1-sub">the Project Zomboid server manager for Windows</span></h1>
+        <p class="pitch">host a Project Zomboid server without touching ini files or command lines, or join a friend's with exactly their mods and fixes.</p>
+        <div class="cta">
+          <a class="btn btn-primary btn-big" href="https://github.com/Naftaliro/pz-server-manager/releases/latest">
+            <svg aria-hidden="true"><use href="/knox/img/icons.svg#download"/></svg>
+            <span>Download for Windows<span class="btn-sub">free · 64-bit installer or portable zip</span></span>
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/Naftaliro/pz-server-manager"><svg aria-hidden="true"><use href="/knox/img/icons.svg#github"/></svg>Source on GitHub</a>
+        </div>
+        <p class="cta-note">open source (MIT) · signed by Mitchell Berg · no accounts, no tracking · <a href="/knox/#trust">is it safe?</a></p>
+      </div>
+      <figure class="hero-shot shot">
+        <img src="/knox/img/screens/overview.png" width="1920" height="1200" fetchpriority="high" decoding="async"
+             alt="Knox Launcher's server overview: the server says online, friends can join, with an invite box showing the address, port and a copy invite message button, and a list of players online.">
+      </figure>
+    </div>
+  </section>
+
+  <div class="strip">
+    <ul class="wrap">
+      <li><svg class="i" aria-hidden="true"><use href="/knox/img/icons.svg#server"/></svg>dedicated server, set up for you</li>
+      <li><svg class="i" aria-hidden="true"><use href="/knox/img/icons.svg#package"/></svg>Steam Workshop mods built in</li>
+      <li><svg class="i" aria-hidden="true"><use href="/knox/img/icons.svg#file"/></svg>one small file to join a friend</li>
+      <li><svg class="i" aria-hidden="true"><use href="/knox/img/icons.svg#shield"/></svg>signed releases</li>
+    </ul>
+  </div>
+
+  <!-- ── host ── -->
+  <section class="sec" id="host" aria-labelledby="t-host">
+    <div class="wrap split">
+      <div>
+        <span class="kicker">Host</span>
+        <h2 id="t-host">Host a Project Zomboid server in a few clicks</h2>
+        <p class="lede">pick a name, a difficulty and some mods, hit start. knox launcher does the parts that usually take an evening of forum threads.</p>
+        <ol class="steps">
+          <li><b>get the game server</b><p>the setup screen downloads the Project Zomboid dedicated server for you (about 7 GB, once), or uses the one already in your Steam library.</p></li>
+          <li><b>make a server in 3 steps</b><p>name, difficulty, mods. the difficulties are the game's own Build 42 presets: Apocalypse, Outbreak, Extinction and Rising.</p></li>
+          <li><b>hit start</b><p>it checks ports, memory and missing mods first and tells you how to fix anything. the first start with mods can take a few minutes.</p></li>
+          <li><b>invite your friends</b><p>when it says <b>online</b>, copy the invite message and paste it in your group chat. or send a server pack so they get your exact mods.</p></li>
+        </ol>
+        <p><a href="/knox/guides/host-project-zomboid-server-windows/">full guide: how to host a Project Zomboid Build 42 server on Windows</a></p>
+      </div>
+      <figure class="shot">
+        <img src="/knox/img/screens/create-server.png" width="1920" height="1200" loading="lazy" decoding="async"
+             alt="The new server screen asking how hard it should be, with the four Build 42 difficulty presets: Apocalypse, Outbreak, Extinction and Rising, each with a one-line description.">
+      </figure>
+    </div>
+  </section>
+
+  <!-- ── join ── -->
+  <section class="sec sec-alt" id="join" aria-labelledby="t-join">
+    <div class="wrap split flip">
+      <div>
+        <span class="kicker">Join</span>
+        <h2 id="t-join">Play on a friend's server with exactly their mods</h2>
+        <p class="lede">no more "which version of that mod do you have". the host sends you one small file and you're in.</p>
+        <ol class="steps">
+          <li><b>pick "play on a friend's server"</b><p>the first time it opens. no server download needed. it finds your game through Steam on any drive.</p></li>
+          <li><b>open their server pack</b><p>the host sends a <code>.pzpack</code> file (Discord works). open it under <b>Play</b>.</p></li>
+          <li><b>match their mods</b><p>it checks your mods against theirs and installs the host's fix mods with one click. Workshop mods download by themselves the first time you join.</p></li>
+          <li><b>play on this server</b><p>pick a username, hit play. the game starts and joins, and the app shows exactly what to type in the login box (your password is already copied).</p></li>
+        </ol>
+        <div class="callout">
+          <svg aria-hidden="true"><use href="/knox/img/icons.svg#server"/></svg>
+          <div>
+            <p><b>new in 1.6: host a copy of any server.</b></p>
+            <p>a server pack can carry the server's settings too (world, zombies, server options, never passwords). anyone with the pack can make a new server from it: same mods, same fix mods, same settings, fresh world.</p>
+          </div>
+        </div>
+      </div>
+      <figure class="shot">
+        <img src="/knox/img/screens/play.png" width="1920" height="1200" loading="lazy" decoding="async"
+             alt="The Play page with a friend's server added from a server pack: it says your mods match this server, shows the username you join as and a Play on this server button.">
+      </figure>
+    </div>
+  </section>
+
+  <!-- PENDING-FEATURE: rollback -->
+  <section class="sec" id="rollback" aria-labelledby="t-rollback">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Rollback · new in 1.6</span>
+        <h2 id="t-rollback">An update broke your server? Roll it back.</h2>
+        <p class="lede">Build 42.22.2 went to the public branch on november 9 and a lot of servers and mods broke overnight. going back used to mean digging through save folders and SteamCMD commands. in 1.6 it's a menu.</p>
+      </div>
+      <div class="split">
+        <div>
+          <ul class="ticks">
+            <li><b>backups have everything.</b> the world, plus the server's settings, mod list and the game version it was running.</li>
+            <li><b>plain options.</b> "before the last game update", "1 hour ago", "yesterday", "last week". no timestamps to decode.</li>
+            <li><b>it checks the game version.</b> if the backup is from an older version, it can switch the server back to the matching Steam branch (like the 42.21 fall-back The Indie Stone kept up). if it can't, it stops and tells you why instead of loading a world that won't work.</li>
+            <li><b>update guard.</b> holds game updates for your server until you say yes, and makes a backup first. no more waking up to a server that updated itself into a broken state.</li>
+          </ul>
+          <div class="callout warn mt">
+            <svg aria-hidden="true"><use href="/knox/img/icons.svg#alert"/></svg>
+            <div>
+              <p><b>what it can't do for you</b></p>
+              <p>it can't switch your friends' games. everyone switches their own game branch in Steam, so knox launcher spots the mismatch and tells them exactly what to pick. and the Steam Workshop only ever serves the newest version of a mod, which is why <a href="/knox/#features">mod backups</a> keep the older copy for you.</p>
+            </div>
+          </div>
+          <p class="mt"><a href="/knox/guides/roll-back-project-zomboid-server-update/">guide: fix a server that broke after the 42.22 update</a></p>
+        </div>
+        <div class="menu" role="img" aria-label="Example of the rollback menu with four choices: before the last game update, 1 hour ago, yesterday and last week, each showing the game version it was made on.">
+          <p class="menu-title">Roll back "Friday Night Apocalypse" to...</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="/knox/img/icons.svg#branch"/></svg><span class="m-name">before the last game update</span><span class="m-meta">42.21 · switches the server branch</span></li>
+            <li><svg aria-hidden="true"><use href="/knox/img/icons.svg#clock"/></svg><span class="m-name">1 hour ago</span><span class="m-meta">42.22.2</span></li>
+            <li><svg aria-hidden="true"><use href="/knox/img/icons.svg#history"/></svg><span class="m-name">yesterday</span><span class="m-meta">42.21</span></li>
+            <li><svg aria-hidden="true"><use href="/knox/img/icons.svg#archive"/></svg><span class="m-name">last week</span><span class="m-meta">42.21</span></li>
+          </ul>
+          <p class="menu-note">the current world is backed up first, so a rollback can be undone too.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /PENDING-FEATURE: rollback -->
+
+  <!-- ── features ── -->
+  <section class="sec sec-alt" id="features" aria-labelledby="t-features">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Features</span>
+        <h2 id="t-features">Everything a Zomboid server needs, minus the ini files</h2>
+        <p class="lede">every server and sandbox setting is still there when you want it. you just don't have to start there.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#sliders"/></svg>Settings that actually work<span class="new">1.6</span></h3>
+          <p>settings come from the game's own files, so the Build 42 loot, zombie and XP presets really apply. starting a server no longer resets your mod settings.</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#package"/></svg>The Steam Workshop, inside the app</h3>
+          <p>hit <b>+ add</b> on any mod. required mods come along, whole collections work, and the app reads the real mod ids out of the files instead of guessing.</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#refresh"/></svg>Load order, sorted</h3>
+          <p>drag to reorder or <b>sort automatically</b> from what each mod says it needs. warns about missing requirements, clashes and mods made for the other build. map mods go in the map list for you.</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#file"/></svg>Server packs</h3>
+          <p>one small <code>.pzpack</code> file with your mod list, fix mods, address and (if you want) settings. friends match your mods with one click, or host their own copy.</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#archive"/></svg>Mod backups<span class="new">1.6</span></h3>
+          <p>keeps a copy of every Workshop mod your servers use. if a mod gets pulled from the Workshop or an update breaks it, switch to your saved copy from the Mods tab.</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#history"/></svg>World backups</h3>
+          <p>a backup every time the server starts, one-click restore, and the current world is saved first so a restore can be undone.</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#check"/></svg>Checks before it starts</h3>
+          <p>ports, memory and missing mods get checked before you start, with a fix button where it can. it knows when the server is actually ready, not just running.</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#globe"/></svg>Friends can actually connect</h3>
+          <p>a step-by-step <a href="https://playit.gg">playit.gg</a> guide so nobody touches the router, a router (UPnP) check, and a Windows Firewall rule that only opens the game ports.</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#users"/></svg>Players and bans<span class="new">1.6</span></h3>
+          <p>see who's online, kick, ban or make someone admin. 1.6 adds a list of everyone who's ever played, with unban right on the overview.</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#power"/></svg>Keeps itself running<span class="new">1.6</span></h3>
+          <p>restarts after a crash, when a mod updates or once a day, with a warning in chat first. servers can start when the app opens, and the app can start with Windows.</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#message"/></svg>Discord notifications</h3>
+          <p>paste a channel webhook and get a message when the server comes online (with the address), crashes, restarts or stops. player joins too, if you want.</p>
+        </article>
+        <article class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#terminal"/></svg>Console and advanced mode</h3>
+          <p>a console with server commands over RCON, raw file editing, mod ids, ports, launch modes and Build 41. hidden until you turn advanced mode on.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── trust ── -->
+  <section class="sec" id="trust" aria-labelledby="t-trust">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Is it safe?</span>
+        <h2 id="t-trust">Signed, open source, and it doesn't phone home</h2>
+        <p class="lede">a server tool runs on your pc and opens ports, so you should be able to see what it does. here's how.</p>
+      </div>
+      <div class="trust">
+        <div class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#shield"/></svg>Signed by a real person</h3>
+          <p>releases are signed with Microsoft Artifact Signing. Windows shows the publisher as <b>Mitchell Berg</b>, the developer, after Microsoft checked his ID.</p>
+        </div>
+        <div class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#code"/></svg>Built from the public code</h3>
+          <p>GitHub Actions builds and signs each release straight from the source on GitHub. pull requests and test builds are never signed.</p>
+        </div>
+        <div class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#lock"/></svg>Updates are checked</h3>
+          <p>the app updates itself, and only runs an update's installer after checking it's signed the same way.</p>
+        </div>
+        <div class="card">
+          <h3><svg aria-hidden="true"><use href="/knox/img/icons.svg#eye-off"/></svg>No accounts, no telemetry</h3>
+          <p>no analytics, no ads, nothing sent to the developer. it only talks to GitHub, Steam and the services you turn on. this site doesn't track you either.</p>
+        </div>
+      </div>
+      <div class="callout smart">
+        <svg aria-hidden="true"><use href="/knox/img/icons.svg#alert"/></svg>
+        <div>
+          <p><b>"Windows protected your PC"?</b></p>
+          <p>for a while after a new release, SmartScreen can still show that, because it wants to see enough downloads first. click <b>More info</b>, check the publisher says <b>Mitchell Berg</b>, then <b>Run anyway</b>. details are in the <a href="https://github.com/Naftaliro/pz-server-manager/blob/main/CODE_SIGNING_POLICY.md">code signing policy</a>, including the full privacy policy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── faq ── -->
+  <section class="sec sec-alt" id="faq" aria-labelledby="t-faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">FAQ</span>
+        <h2 id="t-faq">Questions people actually ask</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary><h3>How do I host a Project Zomboid server on Windows?</h3></summary>
+          <div class="a">
+            <p>with knox launcher: install it, pick "host my own server", let it download the dedicated server (about 7 GB, once), make a server (name, difficulty, mods) and hit start. it sets up the Windows Firewall rule and tells you what to send your friends.</p>
+            <p>doing it by hand works too. the <a href="/knox/guides/host-project-zomboid-server-windows/">hosting guide</a> covers both ways.</p>
+          </div>
+        </details>
+        <details>
+          <summary><h3>Is Knox Launcher free?</h3></summary>
+          <div class="a"><p>yes. free and open source under the MIT license. no paid version, no ads, no account.</p></div>
+        </details>
+        <details>
+          <summary><h3>Do I need to buy anything to host?</h3></summary>
+          <div class="a"><p>no. the Project Zomboid dedicated server is a free download from Steam and the app gets it for you. everyone who wants to play on the server needs their own copy of the game. you don't need a paid hosting service either, your own pc is the server.</p></div>
+        </details>
+        <details>
+          <summary><h3>Does it work with Build 42? What about Build 41?</h3></summary>
+          <div class="a"><p>Build 42 is the default, including its new presets and settings. Build 41 still works from the <code>legacy41</code> branch: turn on advanced mode in app settings and pick it there.</p></div>
+        </details>
+        <details>
+          <summary><h3>How do I play Project Zomboid with friends?</h3></summary>
+          <div class="a">
+            <p>one of you hosts a server (on your own pc is fine), everyone else joins it. the easiest way to join is a server pack: the host makes it from their server's Mods tab (Import / Export → Share with players), you open it under <b>Play</b> and the app matches your mods to theirs.</p>
+            <p>or just type the address into the game: <b>Join</b>, then <b>Add server</b>.</p>
+          </div>
+        </details>
+        <details>
+          <summary><h3>My friends can't join my server. What do I check?</h3></summary>
+          <div class="a">
+            <p>the usual three: the Windows Firewall rule (the app adds it), port forwarding on your router (UDP 16261 and 16262), and everyone on the same game version with no beta branch. the easiest fix is playit.gg, which skips the router part. there's a <a href="/knox/guides/friends-cant-join-project-zomboid-server/">whole guide for this</a>.</p>
+          </div>
+        </details>
+        <details>
+          <summary><h3>How do I add mods to a Project Zomboid server?</h3></summary>
+          <div class="a"><p>open the server's Mods tab, browse the Steam Workshop right in the app and hit <b>+ add</b>. it downloads the mod, finds the real mod ids, adds required mods and map mods, and sorts the load order. friends' games download the same Workshop mods when they join. more in the <a href="/knox/guides/project-zomboid-server-mods/">server mods guide</a>.</p></div>
+        </details>
+        <details>
+          <summary><h3>A mod got removed from the Workshop, or an update broke it. Now what?</h3></summary>
+          <div class="a"><p>if mod backups were on (app settings → Mod backups), the Mods tab can switch the server to your saved copy. friends get that copy from your server pack. the Workshop itself only serves the latest version, so turn mod backups on before you need them.</p></div>
+        </details>
+        <!-- PENDING-FEATURE: rollback -->
+        <details>
+          <summary><h3>Can I roll back my server after a game update?</h3></summary>
+          <div class="a"><p>yes, in 1.6. the rollback menu takes the world, settings and mod list back to "before the last game update" (or 1 hour ago, yesterday, last week) and switches the server to the matching Steam branch when one exists. players switch their own game branch in Steam, and the app tells them which one. the <a href="/knox/guides/roll-back-project-zomboid-server-update/">rollback guide</a> also shows how to do it by hand.</p></div>
+        </details>
+        <!-- /PENDING-FEATURE: rollback -->
+        <details>
+          <summary><h3>Can I host and play on the same PC?</h3></summary>
+          <div class="a"><p>yes, lots of people do. leave enough memory for your own game: the server's memory slider shows how much your pc has. join your own server with the "same Wi-Fi" address from the overview page.</p></div>
+        </details>
+        <details>
+          <summary><h3>Windows says it "protected your PC". Is it a virus?</h3></summary>
+          <div class="a"><p>no. the app is signed, but SmartScreen can still warn about a brand new release until enough people have downloaded it. click <b>More info</b>, check the publisher is <b>Mitchell Berg</b>, then <b>Run anyway</b>. if it says unknown publisher, don't run it and download it again from the GitHub releases page.</p></div>
+        </details>
+        <details>
+          <summary><h3>Is a .pzpack file safe to open?</h3></summary>
+          <div class="a"><p>open server packs from people you trust. the pack's mod list is just a list, but the fix mods inside run in your game like any other mod. the app lists the fix mods in a pack (under <b>Details</b>) and only installs them when you click <b>Install</b>.</p></div>
+        </details>
+        <details>
+          <summary><h3>Does it work on Mac or Linux?</h3></summary>
+          <div class="a"><p>not right now. knox launcher is a Windows app (Windows 10 and 11, 64-bit).</p></div>
+        </details>
+        <details>
+          <summary><h3>Is this made by The Indie Stone?</h3></summary>
+          <div class="a"><p>no. knox launcher is an unofficial, fan-made tool by one developer. it isn't affiliated with or endorsed by The Indie Stone. it uses the regular Project Zomboid dedicated server from Steam, it doesn't change the game.</p></div>
+        </details>
+        <details>
+          <summary><h3>Why "Knox"?</h3></summary>
+          <div class="a"><p>it's named after Knox Country, where the game takes place. it used to be called PZ Server Manager, which is why the repo is still <code>pz-server-manager</code>.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── final cta ── -->
+  <section class="sec final" aria-labelledby="t-final">
+    <div class="wrap narrow">
+      <img src="/knox/img/icon.svg" alt="" width="84" height="84">
+      <h2 id="t-final">Get your server up tonight</h2>
+      <p class="lede">free, open source, and the next time an update breaks everything, you've got a way back.</p>
+      <div class="cta">
+        <a class="btn btn-primary btn-big" href="https://github.com/Naftaliro/pz-server-manager/releases/latest">
+          <svg aria-hidden="true"><use href="/knox/img/icons.svg#download"/></svg>
+          <span>Download for Windows<span class="btn-sub">Windows 10 and 11, 64-bit</span></span>
+        </a>
+        <a class="btn btn-ghost" href="/knox/guides/">Read the guides<svg aria-hidden="true"><use href="/knox/img/icons.svg#arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h2>Knox Launcher</h2>
+        <p>a free Windows app for hosting and joining Project Zomboid servers. made by <a href="https://3hz.dev">Naftaliro</a>.</p>
+        <p><a href="https://github.com/Naftaliro/pz-server-manager"><svg class="i" aria-hidden="true"><use href="/knox/img/icons.svg#github"/></svg> Naftaliro/pz-server-manager</a></p>
+      </div>
+      <nav aria-label="guides">
+        <h2>Guides</h2>
+        <ul>
+          <li><a href="/knox/guides/host-project-zomboid-server-windows/">Host a Build 42 server on Windows</a></li>
+          <li><a href="/knox/guides/friends-cant-join-project-zomboid-server/">Friends can't join your server</a></li>
+          <li><a href="/knox/guides/roll-back-project-zomboid-server-update/">Roll back after the 42.22 update</a></li>
+          <li><a href="/knox/guides/project-zomboid-server-mods/">Add mods to a server</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="project">
+        <h2>Project</h2>
+        <ul>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager/releases/latest">Download / releases</a></li>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager/blob/main/CODE_SIGNING_POLICY.md">Code signing and privacy policy</a></li>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager/issues/new/choose">Report a problem</a></li>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager/blob/main/LICENSE">MIT license</a></li>
+          <li><a href="https://3hz.dev">3hz.dev</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="disclaimer">Knox Launcher is an unofficial, fan-made tool. It is not affiliated with, endorsed by or connected to The Indie Stone. Project Zomboid is a game by The Indie Stone, and its name is used here only to say what this tool works with. Steam and the Steam Workshop belong to Valve Corporation. playit.gg is a separate service with its own terms.</p>
+  </div>
+</footer>
+</body>
+</html>

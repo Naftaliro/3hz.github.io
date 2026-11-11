@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Server broke after the 42.22 update? Roll back a Project Zomboid server · Knox Launcher</title>
+  <meta name="description" content="Build 42.22.2 broke your Project Zomboid server or mods? How to roll back to 42.21 safely: back up first, switch the server and every player to the fall-back branch, restore the world and deal with updated mods.">
+  <link rel="canonical" href="https://3hz.dev/knox/guides/roll-back-project-zomboid-server-update/">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#1e1e2e">
+  <meta name="author" content="Naftaliro">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Knox Launcher">
+  <meta property="og:title" content="Server broke after the 42.22 update? Roll back a Project Zomboid server">
+  <meta property="og:description" content="Back up first, switch the server and every player to the 42.21 fall-back branch, restore the world, and deal with mods that already updated.">
+  <meta property="og:url" content="https://3hz.dev/knox/guides/roll-back-project-zomboid-server-update/">
+  <meta property="og:image" content="https://3hz.dev/knox/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Knox Launcher logo next to the words: Project Zomboid servers without the ini files.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Server broke after the 42.22 update? Roll back a Project Zomboid server">
+  <meta name="twitter:description" content="Back up first, switch the server and every player to the 42.21 fall-back branch, restore the world, and deal with mods that already updated.">
+  <meta name="twitter:image" content="https://3hz.dev/knox/img/og.png">
+  <link rel="icon" href="/knox/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/knox/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/knox/apple-touch-icon.png">
+  <link rel="manifest" href="/knox/site.webmanifest">
+  <link rel="stylesheet" href="/knox/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "Server broke after the 42.22 update? Roll back a Project Zomboid server",
+        "description": "How to roll a Project Zomboid server back to 42.21 after the 42.22.2 update: back up, switch branches, restore the world, handle updated mods.",
+        "url": "https://3hz.dev/knox/guides/roll-back-project-zomboid-server-update/",
+        "mainEntityOfPage": "https://3hz.dev/knox/guides/roll-back-project-zomboid-server-update/",
+        "image": "https://3hz.dev/knox/img/og.png",
+        "datePublished": "2026-11-10",
+        "dateModified": "2026-11-10",
+        "inLanguage": "en",
+        "author": { "@type": "Person", "name": "Mitchell Berg", "alternateName": "Naftaliro", "url": "https://3hz.dev" },
+        "publisher": { "@type": "Person", "name": "Mitchell Berg", "alternateName": "Naftaliro", "url": "https://3hz.dev" },
+        "about": { "@id": "https://3hz.dev/knox/#app" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Knox Launcher", "item": "https://3hz.dev/knox/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://3hz.dev/knox/guides/" },
+          { "@type": "ListItem", "position": 3, "name": "Roll back after the 42.22 update", "item": "https://3hz.dev/knox/guides/roll-back-project-zomboid-server-update/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+<a class="skip" href="#main">skip to content</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/knox/" aria-label="Knox Launcher home">
+      <img src="/knox/img/icon.svg" alt="" width="34" height="34">
+      <span>Knox Launcher<small>Project Zomboid server manager</small></span>
+    </a>
+    <nav class="nav" aria-label="main">
+      <a href="/knox/#host">Host</a>
+      <a href="/knox/#join">Join</a>
+      <a href="/knox/#rollback">Rollback</a>
+      <a href="/knox/guides/" aria-current="page">Guides</a>
+      <a href="/knox/#faq">FAQ</a>
+    </nav>
+    <div class="top-actions">
+      <a class="btn btn-primary btn-sm" href="https://github.com/Naftaliro/pz-server-manager/releases/latest"><svg class="i" aria-hidden="true"><use href="/knox/img/icons.svg#download"/></svg>Download</a>
+      <a class="icon-btn" href="https://github.com/Naftaliro/pz-server-manager" aria-label="Knox Launcher on GitHub"><svg aria-hidden="true"><use href="/knox/img/icons.svg#github"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap narrow">
+  <nav aria-label="breadcrumb"><ol class="crumbs"><li><a href="/knox/">Knox Launcher</a></li><li><a href="/knox/guides/">Guides</a></li><li aria-current="page">Roll back after 42.22</li></ol></nav>
+
+  <article class="article">
+    <h1>Server broke after the 42.22 update? How to roll back a Project Zomboid server</h1>
+    <p class="meta">updated november 10, 2026 · Build 42.22.2 → 42.21 · the same steps work for any future update</p>
+
+    <div class="tldr">
+      <p class="t">short version</p>
+      <ol>
+        <li><b>stop the server and back everything up</b>, even the broken state.</li>
+        <li><b>decide</b> whether to wait for mod fixes or go back.</li>
+        <li>to go back: switch the <b>server</b> to the 42.21 fall-back branch, <b>restore a world backup</b> from before the update, and have <b>every player</b> switch their game to the same branch in Steam.</li>
+        <li>mods that already updated for 42.22 might not work on 42.21. the Workshop only serves the newest version, so you need a saved copy or have to leave that mod out for now.</li>
+      </ol>
+    </div>
+
+    <h2 id="what">What happened</h2>
+    <p>Build 42.22.2 went to the public branch on november 9, 2026. Steam updated the game for everyone, and a lot of servers and mods stopped working: servers that won't start, mods that throw errors, players who can't join a server that's on a different version than their game. The Indie Stone kept a temporary <b>42.21 fall-back branch</b> on Steam, so you can go back while mods catch up.</p>
+
+    <h2 id="backup">1. Stop and back up first</h2>
+    <p>before you change anything, stop the server and copy these somewhere safe (a folder on your desktop is fine):</p>
+    <table>
+      <thead><tr><th>what</th><th>where (default server name is <code>servertest</code>)</th></tr></thead>
+      <tbody>
+        <tr><td>the world</td><td><code>%USERPROFILE%\Zomboid\Saves\Multiplayer\[ServerName]\</code></td></tr>
+        <tr><td>player accounts</td><td><code>%USERPROFILE%\Zomboid\db\[ServerName].db</code></td></tr>
+        <tr><td>server settings</td><td><code>%USERPROFILE%\Zomboid\Server\[ServerName].ini</code>, <code>[ServerName]_SandboxVars.lua</code> and the other <code>[ServerName]_*</code> files</td></tr>
+      </tbody>
+    </table>
+    <p>knox launcher also keeps its own world backups (one every time the server starts) in <code>%USERPROFILE%\Zomboid\pzm-backups\[ServerName]\</code>. check the dates: the useful ones are from <b>before november 9</b>.</p>
+    <div class="callout warn">
+      <svg aria-hidden="true"><use href="/knox/img/icons.svg#alert"/></svg>
+      <div>
+        <p><b>don't keep restarting the server on 42.22 if you plan to go back.</b></p>
+        <p>a world that's been opened on a newer version might not load on an older one. the safe bet is a backup made before the update.</p>
+      </div>
+    </div>
+
+    <h2 id="decide">2. Wait, or go back?</h2>
+    <ul>
+      <li><b>wait</b> if the server starts and the problem is one or two mods. mod authors usually push fixes within days. take the broken mods off for now and keep playing.</li>
+      <li><b>go back</b> if the server won't start, a mod your world depends on is broken (maps, vehicles, big overhauls), or your group just wants to keep playing tonight.</li>
+    </ul>
+
+    <h2 id="server">3. Switch the server to the fall-back branch</h2>
+    <p>the fall-back branch is called <code>42.21</code> (as of november 10, 2026). it's temporary, so if it's gone, check Steam: Library → Tools → <b>Project Zomboid Dedicated Server</b> → Properties → <b>Betas</b> (Game Versions &amp; Betas in newer Steam) for what's there now. then, with the server stopped:</p>
+    <pre tabindex="0"><code>steamcmd.exe +force_install_dir C:\PZServer +login anonymous +app_update 380870 -beta 42.21 validate +quit</code></pre>
+    <p>replace <code>C:\PZServer</code> with your server folder. if your server came from your Steam library instead of SteamCMD, pick <b>42.21</b> in that Betas dropdown and let Steam download it.</p>
+    <p>check it worked: start the server and look near the top of <code>%USERPROFILE%\Zomboid\server-console.txt</code> for the version.</p>
+
+    <h2 id="world">4. Restore the world from before the update</h2>
+    <p>if the world was opened on 42.22, put back a copy from before november 9:</p>
+    <ul>
+      <li><b>by hand:</b> with the server stopped, rename the current world folder (don't delete it), then copy the backup into <code>Saves\Multiplayer\[ServerName]\</code>. do the same for <code>db\[ServerName].db</code> if your backup has one.</li>
+      <li><b>in knox launcher:</b> overview → <b>World</b> → <b>Backups</b> → <b>Restore</b> next to a backup from before the update. it backs up the current world first, so you can undo it.</li>
+    </ul>
+    <p>if the world was never started on 42.22, you can skip this step.</p>
+
+    <h2 id="mods">5. Deal with mods that already updated</h2>
+    <p>this is the annoying part. the Steam Workshop always gives you the newest version of a mod, there's no "download the old one" button. if a mod's author already updated it for 42.22, that new version might not work on 42.21.</p>
+    <ul>
+      <li><b>saved copies:</b> knox launcher's <b>mod backups</b> (app settings → Mod backups) keep the last 2 versions of every Workshop mod your servers use. if it was on before the update, the Mods tab can switch that mod to your saved copy. friends get the copy from your server pack.</li>
+      <li><b>leave it out for now:</b> if the mod isn't something the world depends on, disable it until you go forward again.</li>
+      <li><b>check the mod's Workshop page:</b> some authors post a note or keep an older version for players on the fall-back branch.</li>
+    </ul>
+
+    <h2 id="players">6. Every player switches their game too</h2>
+    <p>the server can't do this part for anyone. each player:</p>
+    <ol>
+      <li>in Steam, right-click <b>Project Zomboid</b> → <b>Properties</b> → <b>Betas</b>.</li>
+      <li>pick the <b>same fall-back branch</b> as the server (<b>42.21</b>).</li>
+      <li>wait for Steam to finish downloading it, then join as usual.</li>
+    </ol>
+    <p>if one person is still on 42.22, they won't be able to join. that's the version check doing its job.</p>
+
+    <h2 id="forward">7. Going forward again</h2>
+    <p>once the mods you need are updated, move everyone back together: players set Betas back to <b>none</b>, you switch the server back with the same SteamCMD command without <code>-beta 42.21</code>, then back up and start it. the fall-back branch is temporary, so don't plan to stay on it forever.</p>
+
+    <!-- PENDING-FEATURE: rollback -->
+    <h2 id="knox">The easy way: rollback in Knox Launcher 1.6</h2>
+    <p>everything above, as a menu. knox launcher 1.6 adds:</p>
+    <ul>
+      <li><b>full backups.</b> each backup has the world plus the server's settings, mod list and the game version it was running.</li>
+      <li><b>a rollback menu with plain options:</b> "before the last game update", "1 hour ago", "yesterday", "last week".</li>
+      <li><b>a version check.</b> if the backup is from a different game version, it can switch the server to the matching Steam branch (like the 42.21 fall-back). if it can't, it stops and explains why, instead of loading a world that won't work.</li>
+      <li><b>player guidance.</b> when a friend's game is on a different version, the app says exactly which branch to pick in Steam. (it can't switch their game for them.)</li>
+      <li><b>update guard.</b> holds game updates for your server until you approve them, and backs up first, so the next big update doesn't catch you at 2am.</li>
+    </ul>
+    <figure class="shot with-cap">
+      <img src="/knox/img/screens/rollback.png" width="1920" height="1200" loading="lazy" decoding="async" alt="Knox Launcher's rollback menu with the options before the last game update, 1 hour ago, yesterday and last week, each showing its game version.">
+    </figure>
+    <!-- /PENDING-FEATURE: rollback -->
+
+    <h2 id="next-time">Next time</h2>
+    <ul>
+      <li>turn on <b>mod backups</b> now, before you need them.</li>
+      <li>keep more world backups around big updates (knox launcher keeps up to 20).</li>
+      <li>don't update the server the same day a big patch lands. let the mods catch up first.</li>
+    </ul>
+
+    <section class="next-guides" aria-labelledby="t-more">
+      <h2 id="t-more">More guides</h2>
+      <div class="guide-list">
+        <a class="card" href="/knox/guides/friends-cant-join-project-zomboid-server/"><h3>Friends can't join your server</h3><p>version mismatches, firewall, ports and the rest.</p></a>
+        <a class="card" href="/knox/guides/project-zomboid-server-mods/"><h3>Add mods to a server</h3><p>Workshop ids, mod ids, load order and mod backups.</p></a>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h2>Knox Launcher</h2>
+        <p>a free Windows app for hosting and joining Project Zomboid servers. made by <a href="https://3hz.dev">Naftaliro</a>.</p>
+        <p><a class="btn btn-primary btn-sm" href="https://github.com/Naftaliro/pz-server-manager/releases/latest"><svg class="i" aria-hidden="true"><use href="/knox/img/icons.svg#download"/></svg>Download for Windows</a></p>
+      </div>
+      <nav aria-label="guides">
+        <h2>Guides</h2>
+        <ul>
+          <li><a href="/knox/guides/host-project-zomboid-server-windows/">Host a Build 42 server on Windows</a></li>
+          <li><a href="/knox/guides/friends-cant-join-project-zomboid-server/">Friends can't join your server</a></li>
+          <li><a href="/knox/guides/roll-back-project-zomboid-server-update/">Roll back after the 42.22 update</a></li>
+          <li><a href="/knox/guides/project-zomboid-server-mods/">Add mods to a server</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="project">
+        <h2>Project</h2>
+        <ul>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager">Source on GitHub</a></li>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager/blob/main/CODE_SIGNING_POLICY.md">Code signing and privacy policy</a></li>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager/issues/new/choose">Report a problem</a></li>
+          <li><a href="https://3hz.dev">3hz.dev</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="disclaimer">Knox Launcher is an unofficial, fan-made tool. It is not affiliated with, endorsed by or connected to The Indie Stone. Project Zomboid is a game by The Indie Stone, and its name is used here only to say what this tool works with. Steam and the Steam Workshop belong to Valve Corporation. playit.gg is a separate service with its own terms.</p>
+  </div>
+</footer>
+</body>
+</html>

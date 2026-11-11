@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Project Zomboid server guides: hosting, mods, joining, rollback · Knox Launcher</title>
+  <meta name="description" content="Practical guides for running a Project Zomboid server on Windows: host a Build 42 server, add mods, fix friends not being able to join, and roll back after a game update.">
+  <link rel="canonical" href="https://3hz.dev/knox/guides/">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#1e1e2e">
+  <meta name="author" content="Naftaliro">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Knox Launcher">
+  <meta property="og:title" content="Project Zomboid server guides">
+  <meta property="og:description" content="Host a Build 42 server on Windows, add mods, fix friends not being able to join, and roll back after a game update.">
+  <meta property="og:url" content="https://3hz.dev/knox/guides/">
+  <meta property="og:image" content="https://3hz.dev/knox/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Knox Launcher logo next to the words: Project Zomboid servers without the ini files.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Project Zomboid server guides">
+  <meta name="twitter:description" content="Host a Build 42 server on Windows, add mods, fix friends not being able to join, and roll back after a game update.">
+  <meta name="twitter:image" content="https://3hz.dev/knox/img/og.png">
+  <link rel="icon" href="/knox/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/knox/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/knox/apple-touch-icon.png">
+  <link rel="manifest" href="/knox/site.webmanifest">
+  <link rel="stylesheet" href="/knox/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">skip to content</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/knox/" aria-label="Knox Launcher home">
+      <img src="/knox/img/icon.svg" alt="" width="34" height="34">
+      <span>Knox Launcher<small>Project Zomboid server manager</small></span>
+    </a>
+    <nav class="nav" aria-label="main">
+      <a href="/knox/#host">Host</a>
+      <a href="/knox/#join">Join</a>
+      <a href="/knox/#rollback">Rollback</a>
+      <a href="/knox/guides/" aria-current="page">Guides</a>
+      <a href="/knox/#faq">FAQ</a>
+    </nav>
+    <div class="top-actions">
+      <a class="btn btn-primary btn-sm" href="https://github.com/Naftaliro/pz-server-manager/releases/latest"><svg class="i" aria-hidden="true"><use href="/knox/img/icons.svg#download"/></svg>Download</a>
+      <a class="icon-btn" href="https://github.com/Naftaliro/pz-server-manager" aria-label="Knox Launcher on GitHub"><svg aria-hidden="true"><use href="/knox/img/icons.svg#github"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav aria-label="breadcrumb"><ol class="crumbs"><li><a href="/knox/">Knox Launcher</a></li><li aria-current="page">Guides</li></ol></nav>
+  <div class="article">
+    <h1>Project Zomboid server guides</h1>
+    <p class="lede">practical stuff for running a Zomboid server on Windows. each guide shows the knox launcher way and the by-hand way, so they're useful either way.</p>
+    <div class="guide-list">
+      <a class="card" href="/knox/guides/host-project-zomboid-server-windows/">
+        <h2><svg aria-hidden="true"><use href="/knox/img/icons.svg#server"/></svg>How to host a Project Zomboid Build 42 server on Windows</h2>
+        <p>what you need, the easy way, the SteamCMD way, ports, memory and first-start problems.</p>
+      </a>
+      <a class="card" href="/knox/guides/friends-cant-join-project-zomboid-server/">
+        <h2><svg aria-hidden="true"><use href="/knox/img/icons.svg#users"/></svg>Friends can't join your server? Fix it step by step</h2>
+        <p>version mismatch, Windows Firewall, port forwarding, CGNAT, mods and passwords, in the order to check them.</p>
+      </a>
+      <a class="card" href="/knox/guides/roll-back-project-zomboid-server-update/">
+        <h2><svg aria-hidden="true"><use href="/knox/img/icons.svg#history"/></svg>Server broke after the 42.22 update? Roll it back</h2>
+        <p>back up, switch the server and every player to the 42.21 fall-back branch, restore the world, handle updated mods.</p>
+      </a>
+      <a class="card" href="/knox/guides/project-zomboid-server-mods/">
+        <h2><svg aria-hidden="true"><use href="/knox/img/icons.svg#package"/></svg>How to add mods to a Project Zomboid server</h2>
+        <p>Workshop ids vs mod ids, the ini lines, map mods, load order and keeping friends in sync.</p>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h2>Knox Launcher</h2>
+        <p>a free Windows app for hosting and joining Project Zomboid servers. made by <a href="https://3hz.dev">Naftaliro</a>.</p>
+        <p><a class="btn btn-primary btn-sm" href="https://github.com/Naftaliro/pz-server-manager/releases/latest"><svg class="i" aria-hidden="true"><use href="/knox/img/icons.svg#download"/></svg>Download for Windows</a></p>
+      </div>
+      <nav aria-label="guides">
+        <h2>Guides</h2>
+        <ul>
+          <li><a href="/knox/guides/host-project-zomboid-server-windows/">Host a Build 42 server on Windows</a></li>
+          <li><a href="/knox/guides/friends-cant-join-project-zomboid-server/">Friends can't join your server</a></li>
+          <li><a href="/knox/guides/roll-back-project-zomboid-server-update/">Roll back after the 42.22 update</a></li>
+          <li><a href="/knox/guides/project-zomboid-server-mods/">Add mods to a server</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="project">
+        <h2>Project</h2>
+        <ul>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager">Source on GitHub</a></li>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager/blob/main/CODE_SIGNING_POLICY.md">Code signing and privacy policy</a></li>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager/issues/new/choose">Report a problem</a></li>
+          <li><a href="https://3hz.dev">3hz.dev</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="disclaimer">Knox Launcher is an unofficial, fan-made tool. It is not affiliated with, endorsed by or connected to The Indie Stone. Project Zomboid is a game by The Indie Stone, and its name is used here only to say what this tool works with. Steam and the Steam Workshop belong to Valve Corporation. playit.gg is a separate service with its own terms.</p>
+  </div>
+</footer>
+</body>
+</html>

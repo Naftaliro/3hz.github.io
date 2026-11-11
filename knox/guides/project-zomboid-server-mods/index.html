@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>How to add mods to a Project Zomboid server (Build 42) · Knox Launcher</title>
+  <meta name="description" content="Add Steam Workshop mods to a Project Zomboid Build 42 server: Workshop ids vs mod ids, the WorkshopItems and Mods lines, map mods, load order, collections, mod updates and keeping friends in sync.">
+  <link rel="canonical" href="https://3hz.dev/knox/guides/project-zomboid-server-mods/">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#1e1e2e">
+  <meta name="author" content="Naftaliro">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Knox Launcher">
+  <meta property="og:title" content="How to add mods to a Project Zomboid server (Build 42)">
+  <meta property="og:description" content="Workshop ids vs mod ids, the WorkshopItems and Mods lines, map mods, load order, mod updates and keeping friends in sync.">
+  <meta property="og:url" content="https://3hz.dev/knox/guides/project-zomboid-server-mods/">
+  <meta property="og:image" content="https://3hz.dev/knox/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Knox Launcher logo next to the words: Project Zomboid servers without the ini files.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to add mods to a Project Zomboid server (Build 42)">
+  <meta name="twitter:description" content="Workshop ids vs mod ids, the WorkshopItems and Mods lines, map mods, load order, mod updates and keeping friends in sync.">
+  <meta name="twitter:image" content="https://3hz.dev/knox/img/og.png">
+  <link rel="icon" href="/knox/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/knox/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/knox/apple-touch-icon.png">
+  <link rel="manifest" href="/knox/site.webmanifest">
+  <link rel="stylesheet" href="/knox/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "How to add mods to a Project Zomboid server (Build 42)",
+        "description": "Workshop ids vs mod ids, the WorkshopItems and Mods lines, map mods, load order, mod updates and keeping friends in sync.",
+        "url": "https://3hz.dev/knox/guides/project-zomboid-server-mods/",
+        "mainEntityOfPage": "https://3hz.dev/knox/guides/project-zomboid-server-mods/",
+        "image": "https://3hz.dev/knox/img/og.png",
+        "datePublished": "2026-11-10",
+        "dateModified": "2026-11-10",
+        "inLanguage": "en",
+        "author": { "@type": "Person", "name": "Mitchell Berg", "alternateName": "Naftaliro", "url": "https://3hz.dev" },
+        "publisher": { "@type": "Person", "name": "Mitchell Berg", "alternateName": "Naftaliro", "url": "https://3hz.dev" },
+        "about": { "@id": "https://3hz.dev/knox/#app" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Knox Launcher", "item": "https://3hz.dev/knox/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://3hz.dev/knox/guides/" },
+          { "@type": "ListItem", "position": 3, "name": "Add mods to a server", "item": "https://3hz.dev/knox/guides/project-zomboid-server-mods/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+<a class="skip" href="#main">skip to content</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/knox/" aria-label="Knox Launcher home">
+      <img src="/knox/img/icon.svg" alt="" width="34" height="34">
+      <span>Knox Launcher<small>Project Zomboid server manager</small></span>
+    </a>
+    <nav class="nav" aria-label="main">
+      <a href="/knox/#host">Host</a>
+      <a href="/knox/#join">Join</a>
+      <a href="/knox/#rollback">Rollback</a>
+      <a href="/knox/guides/" aria-current="page">Guides</a>
+      <a href="/knox/#faq">FAQ</a>
+    </nav>
+    <div class="top-actions">
+      <a class="btn btn-primary btn-sm" href="https://github.com/Naftaliro/pz-server-manager/releases/latest"><svg class="i" aria-hidden="true"><use href="/knox/img/icons.svg#download"/></svg>Download</a>
+      <a class="icon-btn" href="https://github.com/Naftaliro/pz-server-manager" aria-label="Knox Launcher on GitHub"><svg aria-hidden="true"><use href="/knox/img/icons.svg#github"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap narrow">
+  <nav aria-label="breadcrumb"><ol class="crumbs"><li><a href="/knox/">Knox Launcher</a></li><li><a href="/knox/guides/">Guides</a></li><li aria-current="page">Server mods</li></ol></nav>
+
+  <article class="article">
+    <h1>How to add mods to a Project Zomboid server (Build 42)</h1>
+    <p class="meta">updated november 10, 2026 · Build 42, with notes for Build 41</p>
+
+    <div class="tldr">
+      <p class="t">short version</p>
+      <ul>
+        <li>every Workshop mod has two names: a <b>Workshop id</b> (the number in its Steam link) and one or more <b>mod ids</b> (inside its files). the server needs both.</li>
+        <li>they go on the <code>WorkshopItems=</code> and <code>Mods=</code> lines of the server's <code>.ini</code>. map mods also go on <code>Map=</code>.</li>
+        <li>players don't install Workshop mods by hand: the game downloads them when they join.</li>
+        <li>order matters. a mod has to load after the mods it needs.</li>
+      </ul>
+    </div>
+
+    <h2 id="ids">Workshop ids vs mod ids</h2>
+    <p>this trips up almost everyone. a Workshop item is a download on Steam. inside it there can be one mod or several (an addon, a "lite" version, a map). each of those has its own mod id.</p>
+    <ul>
+      <li><b>Workshop id:</b> the number at the end of the mod's Steam link, <code>steamcommunity.com/sharedfiles/filedetails/?id=<b>2392709985</b></code>.</li>
+      <li><b>mod id:</b> the <code>id=</code> line in the mod's <code>mod.info</code> file. once the server has downloaded the mod, it's in <code>steamapps\workshop\content\108600\[Workshop id]\mods\[mod folder]\</code> in the server folder. a lot of Workshop pages list it in the description, but not always correctly.</li>
+    </ul>
+    <p>knox launcher reads the mod ids out of the downloaded files, so there's no guessing. if a Workshop item has several mods, it lets you pick which ones.</p>
+
+    <h2 id="ini">The ini lines</h2>
+    <p>in <code>%USERPROFILE%\Zomboid\Server\[ServerName].ini</code>, with the server stopped:</p>
+    <pre tabindex="0"><code>WorkshopItems=2392709985;2200148440
+Mods=\ModA;\ModB
+Map=SomeMapMod;Muldraugh, KY</code></pre>
+    <ul>
+      <li><code>WorkshopItems</code>: Workshop ids, separated by <code>;</code>. this is what the server and players download.</li>
+      <li><code>Mods</code>: mod ids, in load order. in <b>Build 42 each one starts with a backslash</b> (<code>\ModA</code>). Build 41 doesn't use the backslash.</li>
+      <li><code>Map</code>: map mods' map folder names first, the base map <code>Muldraugh, KY</code> last.</li>
+    </ul>
+
+    <h2 id="order">Load order</h2>
+    <p>mods load in the order of the <code>Mods=</code> line. a mod that needs another one has to come after it. Build 42 mods can say this in their <code>mod.info</code> with <code>require=</code>, <code>loadModAfter=</code> and <code>loadModBefore=</code>.</p>
+    <p>in knox launcher, drag mods to reorder, or hit <b>Sort automatically</b> and it orders them from what each mod says it needs. it also warns about mods that clash, mods made for the other build, and requirements you don't have.</p>
+
+    <h2 id="knox">Adding mods with Knox Launcher</h2>
+    <ol>
+      <li>open your server → <b>Mods</b>. the Steam Workshop opens right inside the app.</li>
+      <li>hit <b>+ add</b> on any mod. required mods get added too, and the download starts straight away.</li>
+      <li>got a Workshop collection? paste its link under <b>Install or check a modpack</b> to add everything in it. (with your own free Steam Web API key in app settings, it also finds the mods each mod needs, even ones the collection forgot.)</li>
+      <li>map mods go into the map list for you. check the order looks right.</li>
+      <li>restart the server. the overview tells you if anything's missing before it starts.</li>
+    </ol>
+    <figure class="shot with-cap">
+      <img src="/knox/img/screens/mods.png" width="1920" height="1200" loading="lazy" decoding="async" alt="The Mods tab of a server: a list of Workshop mods in load order with thumbnails, a Sort automatically button and the map order below.">
+    </figure>
+    <p>already have a mod list from another server? paste the <code>WorkshopItems=</code> and <code>Mods=</code> lines into <b>Import mods</b>, or load the whole <code>.ini</code>.</p>
+
+    <h2 id="friends">Keeping friends in sync</h2>
+    <ul>
+      <li><b>Workshop mods</b> download by themselves when a friend joins. the first join with a big modpack can take a while.</li>
+      <li><b>mods that aren't on the Workshop</b> (small fix mods, your own mods) need to be in every player's <code>%USERPROFILE%\Zomboid\mods</code>. a knox launcher <b>server pack</b> carries those, and friends install them with one click.</li>
+      <li><b>when a mod updates</b> on the Workshop while the server runs, players with the new version can't join until the server restarts. knox launcher restarts by itself with a 5 minute warning in chat (you can turn that off).</li>
+    </ul>
+
+    <h2 id="broken">When a mod gets pulled or an update breaks it</h2>
+    <p>the Workshop only serves the newest version of a mod, and a removed mod is just gone. turn on <b>mod backups</b> in knox launcher's app settings and it keeps a copy of every Workshop mod your servers use (the last 2 versions of each). if a mod disappears or an update breaks it, the Mods tab can switch to your saved copy. friends get it from your server pack (fine for small mods, a pack can hold up to 50 MB).</p>
+    <p>after a game update broke a bunch of mods at once? see <a href="/knox/guides/roll-back-project-zomboid-server-update/">rolling back after the 42.22 update</a>.</p>
+
+    <h2 id="b41">Build 41 mods on a Build 42 server</h2>
+    <p>mods are made for one build. Build 42 mods have a <code>42</code> folder inside the mod, Build 41 mods don't. a B41-only mod won't load on a B42 server. knox launcher warns you about mods made for the other build.</p>
+
+    <h2 id="trouble">Common mod problems</h2>
+    <ul>
+      <li><b>server stops while loading mods:</b> look at the end of <code>server-console.txt</code>. it usually names the mod. most often it's a missing required mod or a wrong mod id.</li>
+      <li><b>a mod's features don't show up:</b> its mod id isn't on the <code>Mods=</code> line (only the Workshop id is), or it loads before something it needs.</li>
+      <li><b>a map mod doesn't appear:</b> it's missing from <code>Map=</code>, or it comes after <code>Muldraugh, KY</code>.</li>
+      <li><b>mod settings keep resetting:</b> older versions of knox launcher reset mod settings on start. 1.6 doesn't.</li>
+    </ul>
+
+    <section class="next-guides" aria-labelledby="t-more">
+      <h2 id="t-more">More guides</h2>
+      <div class="guide-list">
+        <a class="card" href="/knox/guides/host-project-zomboid-server-windows/"><h3>Host a Build 42 server on Windows</h3><p>the whole setup, the easy way or by hand.</p></a>
+        <a class="card" href="/knox/guides/friends-cant-join-project-zomboid-server/"><h3>Friends can't join your server</h3><p>firewall, ports, versions and every other reason, in order.</p></a>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h2>Knox Launcher</h2>
+        <p>a free Windows app for hosting and joining Project Zomboid servers. made by <a href="https://3hz.dev">Naftaliro</a>.</p>
+        <p><a class="btn btn-primary btn-sm" href="https://github.com/Naftaliro/pz-server-manager/releases/latest"><svg class="i" aria-hidden="true"><use href="/knox/img/icons.svg#download"/></svg>Download for Windows</a></p>
+      </div>
+      <nav aria-label="guides">
+        <h2>Guides</h2>
+        <ul>
+          <li><a href="/knox/guides/host-project-zomboid-server-windows/">Host a Build 42 server on Windows</a></li>
+          <li><a href="/knox/guides/friends-cant-join-project-zomboid-server/">Friends can't join your server</a></li>
+          <li><a href="/knox/guides/roll-back-project-zomboid-server-update/">Roll back after the 42.22 update</a></li>
+          <li><a href="/knox/guides/project-zomboid-server-mods/">Add mods to a server</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="project">
+        <h2>Project</h2>
+        <ul>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager">Source on GitHub</a></li>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager/blob/main/CODE_SIGNING_POLICY.md">Code signing and privacy policy</a></li>
+          <li><a href="https://github.com/Naftaliro/pz-server-manager/issues/new/choose">Report a problem</a></li>
+          <li><a href="https://3hz.dev">3hz.dev</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="disclaimer">Knox Launcher is an unofficial, fan-made tool. It is not affiliated with, endorsed by or connected to The Indie Stone. Project Zomboid is a game by The Indie Stone, and its name is used here only to say what this tool works with. Steam and the Steam Workshop belong to Valve Corporation. playit.gg is a separate service with its own terms.</p>
+  </div>
+</footer>
+</body>
+</html>

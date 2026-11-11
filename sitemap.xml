@@ -3,4 +3,28 @@
   <url>
     <loc>https://3hz.dev/</loc>
   </url>
+  <url>
+    <loc>https://3hz.dev/knox/</loc>
+    <lastmod>2026-11-11</lastmod>
+  </url>
+  <url>
+    <loc>https://3hz.dev/knox/guides/</loc>
+    <lastmod>2026-11-11</lastmod>
+  </url>
+  <url>
+    <loc>https://3hz.dev/knox/guides/project-zomboid-server-mods/</loc>
+    <lastmod>2026-11-11</lastmod>
+  </url>
+  <url>
+    <loc>https://3hz.dev/knox/guides/host-project-zomboid-server-windows/</loc>
+    <lastmod>2026-11-11</lastmod>
+  </url>
+  <url>
+    <loc>https://3hz.dev/knox/guides/roll-back-project-zomboid-server-update/</loc>
+    <lastmod>2026-11-11</lastmod>
+  </url>
+  <url>
+    <loc>https://3hz.dev/knox/guides/friends-cant-join-project-zomboid-server/</loc>
+    <lastmod>2026-11-11</lastmod>
+  </url>
 </urlset>
